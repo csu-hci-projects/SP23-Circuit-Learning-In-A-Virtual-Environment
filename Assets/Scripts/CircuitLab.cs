@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SpiceSharp;
+using SpiceSharp.Components;
+using SpiceSharp.Simulations;
+//using UnityEngine.XR.Interaction.Toolkit;
 
 public class CircuitLab : MonoBehaviour
 {
