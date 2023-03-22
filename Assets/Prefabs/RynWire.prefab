@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 2788759645748900523}
   - component: {fileID: 2788759645748900516}
   m_Layer: 0
-  m_Name: Wire
+  m_Name: RynWire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5c206a45cc0496e92327ac88598e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _peg: {fileID: 0}
+  _pegs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _chosenpeg: {fileID: 0}
 --- !u!54 &2788759645748900516
 Rigidbody:
   m_ObjectHideFlags: 0

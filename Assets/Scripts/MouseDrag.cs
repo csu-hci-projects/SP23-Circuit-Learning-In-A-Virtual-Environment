@@ -46,14 +46,20 @@ public class MouseDrag : MonoBehaviour
     // public float snapDistance = 0.1f;
     // public List<Transform> nodes = new List<Transform>();
 
-    public List<PegSnap> _pegs = new List<PegSnap>();
-    // public PegSnap _peg;
+    //public List<PegSnap> _pegs = new List<PegSnap>();
+
+    public List<PegSnap> _pegs = GetComponentsInChildren<PegSnap>();
+
+    private PegSnap _peg;
+
+    public PegSnap _chosenpeg;
 
     void OnMouseUp()
     {
         foreach(PegSnap _peg in _pegs){
-            if(Vector3.Distance(transform.position, _peg.transform.position) < 0.5){
-                transform.position = _peg.transform.position;
+            if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < 0.5){
+                _chosenpeg = _peg;
+                gameObject.transform.position = _peg.transform.position;
             }
         }
 
