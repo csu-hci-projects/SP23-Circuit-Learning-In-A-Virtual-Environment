@@ -17,7 +17,7 @@ public class MouseDrag : MonoBehaviour
     public CircuitLab c_lab_component;
 
     public PegSnap[,] _pegsArray;
-    public List<PegSnap> _pegs = new List<PegSnap>();
+    //public List<PegSnap> _pegs = new List<PegSnap>();
 
 
     void Start()
@@ -25,14 +25,10 @@ public class MouseDrag : MonoBehaviour
 
         //This needs to copy the _listPegs attribute over from the 
         //CircuitLab script, but if it copies it right at Start(), 
-        //that list will be empty. So I have to do it like this
+        //that list will be empty. So I have to do it like this.
+        //I am sorry.
 
         StartCoroutine(PegListCoroutine());
-
-        //_pegsArray = c_lab_component._allPegs;
-
-        //_pegs = c_lab_component._listPegs;
-        //Creates list of pegs here
     }
 
     IEnumerator PegListCoroutine()
@@ -48,7 +44,8 @@ public class MouseDrag : MonoBehaviour
 
         c_lab_component = c_lab.GetComponent<CircuitLab>();
 
-        _pegs = c_lab_component._listPegs;
+        //_pegs = c_lab_component._listPegs;
+        _pegsArray = c_lab_component._allPegs;
 
         //After we have waited 5 seconds print the time again.
         Debug.Log("Finished Coroutine at timestamp : " + Time.time);
@@ -95,7 +92,8 @@ public class MouseDrag : MonoBehaviour
 
     void OnMouseUp()
     {
-        foreach(PegSnap _peg in _pegs){
+        foreach(PegSnap _peg in _pegsArray)
+        {
             if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < 0.5){
                 _chosenpeg = _peg;
                 gameObject.transform.position = _peg.transform.position;
