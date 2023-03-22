@@ -12,6 +12,47 @@ public class MouseDrag : MonoBehaviour
     private Vector3 mOffset;
     private float mZCoord;
 
+    public GameObject c_lab;
+
+    public CircuitLab c_lab_component;
+
+    public PegSnap[,] _pegsArray;
+    public List<PegSnap> _pegs = new List<PegSnap>();
+
+
+    void Start()
+    {
+
+        //This needs to copy the _listPegs attribute over from the 
+        //CircuitLab script, but if it copies it right at Start(), 
+        //that list will be empty. So I have to do it like this
+
+        StartCoroutine(PegListCoroutine());
+
+        //_pegsArray = c_lab_component._allPegs;
+
+        //_pegs = c_lab_component._listPegs;
+        //Creates list of pegs here
+    }
+
+    IEnumerator PegListCoroutine()
+    {
+        //Print the time of when the function is first called.
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+        //yield on a new YieldInstruction that waits for 1 seconds.
+        yield return new WaitForSeconds(1);
+
+
+        c_lab = GameObject.Find("CircuitLab");
+
+        c_lab_component = c_lab.GetComponent<CircuitLab>();
+
+        _pegs = c_lab_component._listPegs;
+
+        //After we have waited 5 seconds print the time again.
+        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+    }
 
     void OnMouseDown(){
 
@@ -46,9 +87,7 @@ public class MouseDrag : MonoBehaviour
     // public float snapDistance = 0.1f;
     // public List<Transform> nodes = new List<Transform>();
 
-    //public List<PegSnap> _pegs = new List<PegSnap>();
-
-    public List<PegSnap> _pegs = GetComponentsInChildren<PegSnap>();
+    
 
     private PegSnap _peg;
 

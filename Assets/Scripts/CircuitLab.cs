@@ -15,9 +15,17 @@ public class CircuitLab : MonoBehaviour
     public Vector3 pegScale;
     public bool isWorldFixed;
 
+
+    //public List<PegSnap> _pegs = new List<PegSnap>();
+    
     Board board;
     const int numRows = 9;
     const int numCols = 9;
+
+
+    public PegSnap[,] _allPegs;
+    public List<PegSnap> _listPegs;
+
 
     //List<IDynamic> dynamicComponents = new List<IDynamic>();
     int numActiveCircuits = 0;
@@ -25,6 +33,9 @@ public class CircuitLab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _allPegs = new PegSnap[numRows, numCols];
+        _listPegs = new List<PegSnap>();
+
         board = new Board(numRows,numCols);
         CreatePegs();
         PreloadSimulator();
@@ -59,12 +70,13 @@ public class CircuitLab : MonoBehaviour
         for(int i = 0; i < numRows; i++)
         {
             for(int j = 0; j < numCols; j++){
-                CreatePeg(i,j);
+                _allPegs[i,j] = CreatePeg(i,j);
+                _listPegs.Add(_allPegs[i, j]);
             }
         }
     }
 
-    private void CreatePeg(int row, int col){
+    private PegSnap CreatePeg(int row, int col){
 
         // create peg name
         string name = "Peg_" + row.ToString() + "_" + col.ToString();
@@ -89,10 +101,13 @@ public class CircuitLab : MonoBehaviour
 
         peg.name = name;
 
+        
+
         Point coords = new Point(col, row);
         board.SetPegGameObject(coords, peg);
-    }
 
+        return peg.AddComponent<PegSnap>();
+    }
 
     public void RemoveComponent(GameObject component, Point start)
     {
