@@ -390,7 +390,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c_lab: {fileID: 0}
   c_lab_component: {fileID: 0}
-  _pegs: []
   _chosenpeg: {fileID: 0}
 --- !u!54 &8463206691243855240
 Rigidbody:
@@ -415,7 +414,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7649148490959827587}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cecc64bf5bccd6048aab33a70af561f4, type: 3}
   m_Name: 
