@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 236140214061543155}
   - component: {fileID: 1637507296896033322}
   - component: {fileID: 6879056137350688752}
+  - component: {fileID: 6051517417106580971}
   m_Layer: 0
   m_Name: WireEnd2
   m_TagString: Untagged
@@ -97,6 +98,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &6051517417106580971
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824849957649625356}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2302310588570569454
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +125,6 @@ GameObject:
   - component: {fileID: 3134362788126600906}
   - component: {fileID: 7174366552284174136}
   - component: {fileID: 9010200360782906216}
-  - component: {fileID: 1422319237338410199}
   m_Layer: 0
   m_Name: WireBody
   m_TagString: Untagged
@@ -181,20 +197,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1422319237338410199
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2302310588570569454}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &3062019839887793148
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +209,7 @@ GameObject:
   - component: {fileID: 6433154301609147695}
   - component: {fileID: 4742754794290786842}
   - component: {fileID: 7493074115478650656}
+  - component: {fileID: 7019927942901222348}
   m_Layer: 0
   m_Name: WireEnd1
   m_TagString: Untagged
@@ -292,6 +295,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7019927942901222348
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3062019839887793148}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3424806601783317662
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,8 +320,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2145289676026968604}
+  - component: {fileID: 7138296667301955562}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TransformEmpty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -326,6 +346,21 @@ Transform:
   m_Father: {fileID: 3597286652957839814}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7138296667301955562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3424806601783317662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b40a29e7d329947bca6799c7c96fc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positiveConnected: 0
+  negativeConnected: 0
+  touchedObjects: []
 --- !u!1 &7649148490959827587
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +373,6 @@ GameObject:
   - component: {fileID: 6888039938910388609}
   - component: {fileID: 54670970147214128}
   - component: {fileID: 8463206691243855240}
-  - component: {fileID: 1980896217140874750}
   m_Layer: 0
   m_Name: Wire
   m_TagString: Untagged
@@ -407,16 +441,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &1980896217140874750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7649148490959827587}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecc64bf5bccd6048aab33a70af561f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Lab: {fileID: 0}
