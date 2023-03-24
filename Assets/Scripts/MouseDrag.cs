@@ -14,6 +14,8 @@ public class MouseDrag : MonoBehaviour
 
     public CircuitLab c_lab;
 
+    public bool vertical;
+
     public PegSnap[,] _pegsArray;
     //public List<PegSnap> _pegs = new List<PegSnap>();
 
