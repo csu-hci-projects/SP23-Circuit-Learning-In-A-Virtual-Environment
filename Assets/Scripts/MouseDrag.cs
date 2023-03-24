@@ -12,9 +12,7 @@ public class MouseDrag : MonoBehaviour
     private Vector3 mOffset;
     private float mZCoord;
 
-    public GameObject c_lab;
-
-    public CircuitLab c_lab_component;
+    public CircuitLab c_lab;
 
     public PegSnap[,] _pegsArray;
     //public List<PegSnap> _pegs = new List<PegSnap>();
@@ -40,12 +38,10 @@ public class MouseDrag : MonoBehaviour
         yield return new WaitForSeconds(1);
 
 
-        c_lab = GameObject.Find("CircuitLab");
-
-        c_lab_component = c_lab.GetComponent<CircuitLab>();
+        c_lab = GameObject.Find("CircuitLab").GetComponent<CircuitLab>();
 
         //_pegs = c_lab_component._listPegs;
-        _pegsArray = c_lab_component._allPegs;
+        _pegsArray = c_lab._allPegs;
 
         //Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
@@ -92,7 +88,7 @@ public class MouseDrag : MonoBehaviour
     {
         foreach(PegSnap _peg in _pegsArray)
         {
-            if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < 0.5){
+            if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < 0.5 && !_peg.blocked){
                 _chosenpeg = _peg;
                 gameObject.transform.position = _peg.transform.position;
             }

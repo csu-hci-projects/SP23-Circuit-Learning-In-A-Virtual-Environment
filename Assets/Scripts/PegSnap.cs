@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PegSnap : MonoBehaviour
 {
+    public bool blocked = false;
+    public List<CircuitComponent> attachedComponents = new List<CircuitComponent>();
+
     // Start is called before the first frame update
     void Start()
     {
