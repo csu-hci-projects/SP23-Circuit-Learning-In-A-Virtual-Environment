@@ -13,7 +13,8 @@ Created prefab wire asset | Cory Raetz
 Created CircuitLab script for holding all components of a level | Cory Raetz
 Created Breadboard script, contains Board class and Peg class for the Breadboard | Cory Raetz
 Added new version of project to repo | Cory Raetz, Steph Didier
-Added logic for a completed circuit | Terryn Gabel
+Added snapping to board for components | Terryn Gabel, Ali Branum
+Added logic for a completed circuit | Terryn Gabel, Ali Branum
 Added World-fixed annotations | Cory Raetz
 
 ## Remaining Tasks
