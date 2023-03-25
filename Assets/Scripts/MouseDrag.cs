@@ -95,6 +95,8 @@ public class MouseDrag : MonoBehaviour
                 _chosenpeg = _peg;
                 gameObject.transform.position = _peg.transform.position;
                 _peg.connect(this_wire);
+
+                //The other peg will be 1 down if the component is vertical, 1 over if the component is horizontal.
             }
         }
 

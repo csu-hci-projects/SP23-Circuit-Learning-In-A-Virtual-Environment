@@ -7,6 +7,9 @@ public class PegSnap : MonoBehaviour
     public bool blocked = false;
     public List<Wire> attachedComponents = new List<Wire>();
 
+    public int col;
+    public int row;
+
     // Start is called before the first frame update
     void Start()
     {

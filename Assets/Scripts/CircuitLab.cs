@@ -100,13 +100,18 @@ public class CircuitLab : MonoBehaviour
         peg.transform.localScale = pegScale;
 
         peg.name = name;
-
+        
         
 
         Point coords = new Point(col, row);
         board.SetPegGameObject(coords, peg);
 
-        return peg.AddComponent<PegSnap>();
+        PegSnap pegComponent = peg.AddComponent<PegSnap>();
+
+        pegComponent.col = col;
+        pegComponent.row = row;
+
+        return pegComponent;
     }
 
     public void RemoveComponent(GameObject component, Point start)
