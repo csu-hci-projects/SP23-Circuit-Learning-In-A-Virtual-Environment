@@ -5,7 +5,7 @@ using UnityEngine;
 public class PegSnap : MonoBehaviour
 {
     public bool blocked = false;
-    public List<CircuitComponent> attachedComponents = new List<CircuitComponent>();
+    public List<Wire> attachedComponents = new List<Wire>();
 
     // Start is called before the first frame update
     void Start()
@@ -17,5 +17,25 @@ public class PegSnap : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void connect(Wire connected)
+    {
+        Debug.Log("Connect");
+        attachedComponents.Add(connected);
+        if (attachedComponents.Count >= 2)
+        {
+            blocked = true;
+        }
+    }
+
+    public void disconnect(Wire connected)
+    {
+        Debug.Log("Disconnect");
+        attachedComponents.Remove(connected);
+        if (attachedComponents.Count < 2)
+        {
+            blocked = false;
+        }
     }
 }

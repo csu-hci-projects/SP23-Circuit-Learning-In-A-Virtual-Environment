@@ -13,6 +13,7 @@ public class MouseDrag : MonoBehaviour
     private float mZCoord;
 
     public CircuitLab c_lab;
+    public Wire this_wire;
 
     public bool vertical;
 
@@ -93,6 +94,7 @@ public class MouseDrag : MonoBehaviour
             if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < 0.5 && !_peg.blocked){
                 _chosenpeg = _peg;
                 gameObject.transform.position = _peg.transform.position;
+                _peg.connect(this_wire);
             }
         }
 
