@@ -21,6 +21,29 @@ public class MouseDrag : MonoBehaviour
     public PegSnap[,] _pegsArray;
     //public List<PegSnap> _pegs = new List<PegSnap>();
 
+    private PegSnap nextPegOver(PegSnap given)
+    {
+        PegSnap otherPeg = null;
+        if (vertical)
+        {
+            int newRow = given.row - 1;
+            if (newRow >= 0)
+            {
+                 otherPeg = c_lab._allPegs[newRow, given.col];
+            }
+        }
+        else
+        {
+            int newCol = given.col - 1;
+            if (newCol >= 0)
+            {
+                 otherPeg = c_lab._allPegs[given.row, newCol];
+            }
+        }
+
+        return otherPeg;
+    }
+
 
     void Start()
     {
@@ -62,24 +85,7 @@ public class MouseDrag : MonoBehaviour
         {
             _chosenpeg.disconnect(this_wire);
 
-            if (vertical)
-            {
-                int newRow = _chosenpeg.row - 1;
-                if (newRow >= 0)
-                {
-                    PegSnap otherPeg = c_lab._allPegs[newRow, _chosenpeg.col];
-                    otherPeg.disconnect(this_wire);
-                }
-            }
-            else
-            {
-                int newCol = _chosenpeg.col - 1;
-                if (newCol >= 0)
-                {
-                    PegSnap otherPeg = c_lab._allPegs[_chosenpeg.row, newCol];
-                    otherPeg.disconnect(this_wire);
-                }
-            }
+            nextPegOver(_chosenpeg).disconnect(this_wire);
 
         }
 
@@ -124,25 +130,8 @@ public class MouseDrag : MonoBehaviour
                 gameObject.transform.position = _peg.transform.position;
                 _peg.connect(this_wire);
 
-                //The other peg will be 1 down if the component is vertical, 1 over if the component is horizontal.
-                if (vertical)
-                {
-                    int newRow = _peg.row - 1;
-                    if(newRow >= 0)
-                    {
-                        PegSnap otherPeg = c_lab._allPegs[newRow, _peg.col];
-                        otherPeg.connect(this_wire);
-                    }
-                }
-                else
-                {
-                    int newCol = _peg.col - 1;
-                    if (newCol >= 0)
-                    {
-                        PegSnap otherPeg = c_lab._allPegs[_peg.row, newCol];
-                        otherPeg.connect(this_wire);
-                    }
-                }
+                nextPegOver(_chosenpeg).connect(this_wire);
+
                 snapped = true;
             }
         }
