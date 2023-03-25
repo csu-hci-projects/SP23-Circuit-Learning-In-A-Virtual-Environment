@@ -103,13 +103,13 @@ public class CircuitLab : MonoBehaviour
         
         
 
-        Point coords = new Point(col, row);
+        Point coords = new Point(row, col);
         board.SetPegGameObject(coords, peg);
 
         PegSnap pegComponent = peg.AddComponent<PegSnap>();
 
-        pegComponent.col = col;
         pegComponent.row = row;
+        pegComponent.col = col;
 
         return pegComponent;
     }

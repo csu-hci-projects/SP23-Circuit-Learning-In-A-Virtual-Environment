@@ -16,6 +16,7 @@ public class MouseDrag : MonoBehaviour
     public Wire this_wire;
 
     public bool vertical;
+    public bool snapped = false;
 
     public PegSnap[,] _pegsArray;
     //public List<PegSnap> _pegs = new List<PegSnap>();
@@ -56,6 +57,33 @@ public class MouseDrag : MonoBehaviour
         // Store offset = gameobject world pos - mouse world pos
 
         mOffset = gameObject.transform.position - GetMouseAsWorldPoint();
+
+        if (snapped)
+        {
+            _chosenpeg.disconnect(this_wire);
+
+            if (vertical)
+            {
+                int newRow = _chosenpeg.row - 1;
+                if (newRow >= 0)
+                {
+                    PegSnap otherPeg = c_lab._allPegs[newRow, _chosenpeg.col];
+                    otherPeg.disconnect(this_wire);
+                }
+            }
+            else
+            {
+                int newCol = _chosenpeg.col - 1;
+                if (newCol >= 0)
+                {
+                    PegSnap otherPeg = c_lab._allPegs[_chosenpeg.row, newCol];
+                    otherPeg.disconnect(this_wire);
+                }
+            }
+
+        }
+
+        snapped = false;
     }
 
 
@@ -97,6 +125,25 @@ public class MouseDrag : MonoBehaviour
                 _peg.connect(this_wire);
 
                 //The other peg will be 1 down if the component is vertical, 1 over if the component is horizontal.
+                if (vertical)
+                {
+                    int newRow = _peg.row - 1;
+                    if(newRow >= 0)
+                    {
+                        PegSnap otherPeg = c_lab._allPegs[newRow, _peg.col];
+                        otherPeg.connect(this_wire);
+                    }
+                }
+                else
+                {
+                    int newCol = _peg.col - 1;
+                    if (newCol >= 0)
+                    {
+                        PegSnap otherPeg = c_lab._allPegs[_peg.row, newCol];
+                        otherPeg.connect(this_wire);
+                    }
+                }
+                snapped = true;
             }
         }
 
