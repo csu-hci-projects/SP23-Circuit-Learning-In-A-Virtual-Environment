@@ -56,23 +56,24 @@ public abstract class CircuitComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "WireEnd1" || other.gameObject.name == "WireEnd2")
+        Debug.Log("Collided with " + other.gameObject.name + " !");
+        if (other.gameObject.name.Contains("End") && !touchingComponents.Contains(other.gameObject.GetComponent<ComponentEnd>().owner))
         {
             touchingComponents.Add(other.gameObject.GetComponent<ComponentEnd>().owner);
             other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Add(this);
-        }
 
-        Debug.Log("Object added to colliders list");
+            Debug.Log("Object added to colliders list");
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Object removed from colliders list");
-
-        if (other.gameObject.name == "WireEnd1" || other.gameObject.name == "WireEnd2")
+        if (other.gameObject.name.Contains("End") && touchingComponents.Contains(other.gameObject.GetComponent<ComponentEnd>().owner))
         {
             touchingComponents.Remove(other.gameObject.GetComponent<ComponentEnd>().owner);
             other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Remove(this);
+
+            Debug.Log("Object removed from colliders list");
         }
     }
 
