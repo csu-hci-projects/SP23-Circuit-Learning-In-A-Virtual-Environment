@@ -4,23 +4,24 @@ using UnityEngine;
 
 public enum LabelAlignment { Top, Bottom, Center };
 
-public class CircuitComponent : MonoBehaviour
+public abstract class CircuitComponent : MonoBehaviour
 {
-    // Public members set in Unity Object Inspector
-    public CircuitLab Lab;
+    [SerializeField]
+    private CircuitLab Lab;
+
+    [SerializeField]
+    protected List<ComponentEnd> ends;
+
+    [SerializeField]
+    protected List<CircuitComponent> touchingComponents;
 
     public bool IsPlaced { get; protected set; }
     public bool IsHeld { get; protected set; }
-    public bool IsClone { get; set; }
-    public bool IsClosed { get; protected set; }
 
     protected Point StartingPeg { get; set; }
     protected Direction Direction { get; set; }
     protected bool IsActive { get; set; }
     protected bool IsForward { get; set; }
-    protected bool IsShortCircuit { get; set; }
-    protected double Voltage { get; set; }
-    protected double Current { get; set; }
 
     const double SignificantCurrent = 0.0000001;
     const float LabelOffset = 0.022f;
@@ -29,17 +30,22 @@ public class CircuitComponent : MonoBehaviour
     {
         IsPlaced = false;
         IsHeld = false;
-        IsClone = false;
-        IsClosed = true;
         IsActive = false;
         IsForward = true;
-        IsShortCircuit = false;
-        Voltage = 0f;
-        Current = 0f;
     }
 
-    protected virtual void Start() { }
-    protected virtual void Update() { }
+    protected virtual void Start()
+    {
+        touchingComponents = new List<CircuitComponent>();
+
+        ends = new List<ComponentEnd>(gameObject.GetComponentsInChildren<ComponentEnd>());
+        foreach (ComponentEnd addedend in ends)
+        {
+            addedend.owner = this;
+        }
+    }
+
+    protected abstract void Update();
 
     public void Place(Point start, Direction dir)
     {
@@ -48,46 +54,32 @@ public class CircuitComponent : MonoBehaviour
         Direction = dir;
     }
 
-    public virtual void SetActive(bool isActive, bool isForward)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "WireEnd1" || other.gameObject.name == "WireEnd2")
+        {
+            touchingComponents.Add(other.gameObject.GetComponent<ComponentEnd>().owner);
+            other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Add(this);
+        }
+
+        Debug.Log("Object added to colliders list");
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Object removed from colliders list");
+
+        if (other.gameObject.name == "WireEnd1" || other.gameObject.name == "WireEnd2")
+        {
+            touchingComponents.Remove(other.gameObject.GetComponent<ComponentEnd>().owner);
+            other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Remove(this);
+        }
+    }
+
+public virtual void SetActive(bool isActive, bool isForward)
     {
         IsActive = isActive;
         IsForward = isForward;
-    }
-
-    public virtual void SetShortCircuit(bool isShortCircuit, bool isForward)
-    {
-        IsShortCircuit = isShortCircuit;
-        IsForward = isForward;
-    }
-
-    public double GetVoltage()
-    {
-        return Voltage;
-    }
-
-    public virtual void SetVoltage(double voltage)
-    {
-        Voltage = voltage;
-    }
-
-    public virtual void SetCurrent(double current)
-    {
-        Current = current;
-    }
-
-    protected bool IsCurrentSignificant()
-    {
-        return (Current > SignificantCurrent);
-    }
-
-    // Toggle the state of a binary component (for example, a switch)
-    public virtual void Toggle()
-    {
-    }
-
-    // Adjust the behavior of a component with various modes
-    public virtual void Adjust()
-    {
     }
 
     // Reset any component-specific state that might need resetting
