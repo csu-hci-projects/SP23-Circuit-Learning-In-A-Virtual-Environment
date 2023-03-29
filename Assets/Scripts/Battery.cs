@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CompleteUI;
 
 public class Battery : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Battery : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         foreach (GameObject item in touchedObjects)
         {
             if(item.GetComponentsInParent<Wire>()[0].positiveConnected && item.GetComponentsInParent<Wire>()[0].negativeConnected){
@@ -25,6 +27,7 @@ public class Battery : MonoBehaviour
 
         if(isComplete == true){
             Debug.Log("Circuit Complete!");
+            CompletionUI.Instance.Show();
         }
     }
     private void OnTriggerEnter(Collider other)

@@ -1685,7 +1685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1369964855
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1912,6 +1912,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1755019329}
+  - component: {fileID: 1755019330}
   m_Layer: 0
   m_Name: Completed Circuit
   m_TagString: Untagged
@@ -1935,6 +1936,21 @@ Transform:
   m_Father: {fileID: 1832501545}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1755019330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755019328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c91396c5c22d9b45897aed796cb1e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1369964854}
+  messageText: {fileID: 71809452}
+  continueButton: {fileID: 1107641067}
 --- !u!1 &1832501544
 GameObject:
   m_ObjectHideFlags: 0
