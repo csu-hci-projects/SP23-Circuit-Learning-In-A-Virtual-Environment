@@ -6,6 +6,14 @@ using SpiceSharp.Components;
 using SpiceSharp.Simulations;
 //using UnityEngine.XR.Interaction.Toolkit;
 
+struct Circuit
+{
+    public float resistance;
+    public float current;
+
+    public List<Wire> ownWires;
+}
+
 public class CircuitLab : MonoBehaviour
 {
     // public members found in Unity inspector
