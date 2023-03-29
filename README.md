@@ -32,6 +32,7 @@ Add logic for displaying screen-fixed or world-fixed annotations | Terryn Gabel
 Create function for displaying different levels | Freya LaLuna
 Write content for annotations | Stephanie Didier
 Create demo video for running at the beginning of the experiment | All
+Remove placholder code in [Battery.cs](https://github.com/csu-hci-projects/SP23-Circuit-Learning-In-A-Virtual-Environment/blob/c314652b2bb5bc4241fd08a23d91ec95b77d73d4/Assets/Scripts/Battery.cs) after [CircuitLab.cs](https://github.com/csu-hci-projects/SP23-Circuit-Learning-In-A-Virtual-Environment/blob/c314652b2bb5bc4241fd08a23d91ec95b77d73d4/Assets/Scripts/CircuitLab.cs) is completed | --
 
 Link to Checkpoint 1 video: https://youtu.be/912egtSdszc
 
