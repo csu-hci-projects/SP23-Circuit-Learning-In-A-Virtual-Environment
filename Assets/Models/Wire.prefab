@@ -127,8 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b895eaebd056142837b499dd1b8990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownerWire: {fileID: 0}
-  ownerBattery: {fileID: 0}
+  owner: {fileID: 0}
 --- !u!1 &2302310588570569454
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,8 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b895eaebd056142837b499dd1b8990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownerWire: {fileID: 0}
-  ownerBattery: {fileID: 0}
+  owner: {fileID: 0}
 --- !u!1 &3424806601783317662
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,14 +437,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b40a29e7d329947bca6799c7c96fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positiveConnected: 0
-  negativeConnected: 0
+  Lab: {fileID: 0}
   ends:
   - {fileID: 4912509423046775074}
   - {fileID: 8176676389941120919}
-  touchedObjects: []
-  touchedWires: []
-  connectedBattery: {fileID: 0}
+  touchingComponents: []
+  transformAdjust: 1
 --- !u!136 &5445385167568683348
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -474,6 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   c_lab: {fileID: 0}
-  this_wire: {fileID: 5473590982317545488}
+  this_component: {fileID: 5473590982317545488}
   vertical: 0
+  snapped: 0
   _chosenpeg: {fileID: 0}

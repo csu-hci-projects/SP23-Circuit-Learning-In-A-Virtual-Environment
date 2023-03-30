@@ -11,7 +11,7 @@ struct Circuit
     public float resistance;
     public float current;
 
-    public List<Wire> ownWires;
+    public List<CircuitComponent> ownComponents;
 }
 
 public class CircuitLab : MonoBehaviour
