@@ -189,6 +189,9 @@ public class CircuitLab : MonoBehaviour
 
         Debug.Log("Construct circuits");
 
+        numCircuits = 0;
+        allCircuits = new List<Circuit>();
+
         List<CircuitComponent> unvisited = new List<CircuitComponent>(allComponents);
 
         while (unvisited.Count != 0)
@@ -203,8 +206,16 @@ public class CircuitLab : MonoBehaviour
             thisCircuit.ownComponents.Add(thisItem);
 
             allCircuits.Add(thisCircuit);
+
+            DepthFirstSearch(thisItem, thisCircuit, unvisited);
         }
 
+    }
+
+    private void DepthFirstSearch(CircuitComponent thisItem, Circuit thisCircuit, List<CircuitComponent> unvisited)
+    {
+        //Recursively accesses all of the unvisited adjacent components to thisItem, adding them to the circuit and removing
+        //them from unvisited
     }
 
 }
