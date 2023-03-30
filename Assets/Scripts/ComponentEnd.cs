@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WireEnd : MonoBehaviour
+public class ComponentEnd : MonoBehaviour
 {
-    public Wire ownerWire;
-    public Battery ownerBattery;
+    public CircuitComponent owner;
 
     // Start is called before the first frame update
 

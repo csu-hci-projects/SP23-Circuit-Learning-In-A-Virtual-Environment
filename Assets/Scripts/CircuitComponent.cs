@@ -4,42 +4,71 @@ using UnityEngine;
 
 public enum LabelAlignment { Top, Bottom, Center };
 
-public class CircuitComponent : MonoBehaviour
+public abstract class CircuitComponent : MonoBehaviour
 {
-    // Public members set in Unity Object Inspector
-    public CircuitLab Lab;
+    [SerializeField]
+    private CircuitLab Lab;
+
+    [SerializeField]
+    protected List<ComponentEnd> ends;
+
+    //[SerializeField]
+    public List<CircuitComponent> touchingComponents;
+
+    protected Point StartingPeg { get; set; }
 
     public bool IsPlaced { get; protected set; }
     public bool IsHeld { get; protected set; }
-    public bool IsClone { get; set; }
-    public bool IsClosed { get; protected set; }
 
-    protected Point StartingPeg { get; set; }
+    public PegSnap startPeg;
+    public PegSnap endPeg;
+
+
+
     protected Direction Direction { get; set; }
     protected bool IsActive { get; set; }
     protected bool IsForward { get; set; }
-    protected bool IsShortCircuit { get; set; }
-    protected double Voltage { get; set; }
-    protected double Current { get; set; }
 
     const double SignificantCurrent = 0.0000001;
     const float LabelOffset = 0.022f;
+
+    public float transformAdjust = 1f;
+
 
     protected CircuitComponent()
     {
         IsPlaced = false;
         IsHeld = false;
-        IsClone = false;
-        IsClosed = true;
         IsActive = false;
         IsForward = true;
-        IsShortCircuit = false;
-        Voltage = 0f;
-        Current = 0f;
     }
 
-    protected virtual void Start() { }
-    protected virtual void Update() { }
+    protected virtual void Start()
+    {
+        touchingComponents = new List<CircuitComponent>();
+
+        ends = new List<ComponentEnd>(gameObject.GetComponentsInChildren<ComponentEnd>());
+        foreach (ComponentEnd addedend in ends)
+        {
+            addedend.owner = this;
+        }
+
+        Lab = (CircuitLab)FindObjectOfType(typeof(CircuitLab));
+    }
+
+    protected abstract void Update();
+
+    public void setScale()
+    {
+        transformAdjust = (float)(Lab.scaleAdjust);
+        gameObject.transform.localScale = gameObject.transform.localScale * transformAdjust;
+    }
+
+    public void setPegs(PegSnap start, PegSnap end)
+    {
+        startPeg = start;
+        endPeg = end;
+    }
 
     public void Place(Point start, Direction dir)
     {
@@ -48,46 +77,33 @@ public class CircuitComponent : MonoBehaviour
         Direction = dir;
     }
 
-    public virtual void SetActive(bool isActive, bool isForward)
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Collided with " + other.gameObject.name + " !");
+        if (other.gameObject.name.Contains("End") && !touchingComponents.Contains(other.gameObject.GetComponent<ComponentEnd>().owner))
+        {
+            touchingComponents.Add(other.gameObject.GetComponent<ComponentEnd>().owner);
+            other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Add(this);
+
+            Debug.Log("Object added to colliders list");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name.Contains("End") && touchingComponents.Contains(other.gameObject.GetComponent<ComponentEnd>().owner))
+        {
+            touchingComponents.Remove(other.gameObject.GetComponent<ComponentEnd>().owner);
+            other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Remove(this);
+
+            Debug.Log("Object removed from colliders list");
+        }
+    }
+
+public virtual void SetActive(bool isActive, bool isForward)
     {
         IsActive = isActive;
         IsForward = isForward;
-    }
-
-    public virtual void SetShortCircuit(bool isShortCircuit, bool isForward)
-    {
-        IsShortCircuit = isShortCircuit;
-        IsForward = isForward;
-    }
-
-    public double GetVoltage()
-    {
-        return Voltage;
-    }
-
-    public virtual void SetVoltage(double voltage)
-    {
-        Voltage = voltage;
-    }
-
-    public virtual void SetCurrent(double current)
-    {
-        Current = current;
-    }
-
-    protected bool IsCurrentSignificant()
-    {
-        return (Current > SignificantCurrent);
-    }
-
-    // Toggle the state of a binary component (for example, a switch)
-    public virtual void Toggle()
-    {
-    }
-
-    // Adjust the behavior of a component with various modes
-    public virtual void Adjust()
-    {
     }
 
     // Reset any component-specific state that might need resetting
@@ -167,6 +183,7 @@ public class CircuitComponent : MonoBehaviour
         label.transform.localPosition = position;
     }
 }
+
 
 public enum Direction { North, South, East, West };
 

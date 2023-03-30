@@ -5,7 +5,7 @@ using UnityEngine;
 public class PegSnap : MonoBehaviour
 {
     public bool blocked = false;
-    public List<Wire> attachedComponents = new List<Wire>();
+    public List<CircuitComponent> attachedComponents = new List<CircuitComponent>();
 
 
     public int row;
@@ -23,7 +23,7 @@ public class PegSnap : MonoBehaviour
         
     }
 
-    public void connect(Wire connected)
+    public void connect(CircuitComponent connected)
     {
         Debug.Log(row + " " + col + " Connect") ;
         attachedComponents.Add(connected);
@@ -33,7 +33,7 @@ public class PegSnap : MonoBehaviour
         }
     }
 
-    public void disconnect(Wire connected)
+    public void disconnect(CircuitComponent connected)
     {
         Debug.Log(row + " " + col + " Disconnect");
         attachedComponents.Remove(connected);

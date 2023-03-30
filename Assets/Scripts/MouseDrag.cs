@@ -13,7 +13,7 @@ public class MouseDrag : MonoBehaviour
     private float mZCoord;
 
     public CircuitLab c_lab;
-    public Wire this_wire;
+    public CircuitComponent this_component;
 
     public bool vertical;
     public bool snapped = false;
@@ -83,9 +83,9 @@ public class MouseDrag : MonoBehaviour
 
         if (snapped)
         {
-            _chosenpeg.disconnect(this_wire);
+            _chosenpeg.disconnect(this_component);
 
-            nextPegOver(_chosenpeg).disconnect(this_wire);
+            nextPegOver(_chosenpeg).disconnect(this_component);
 
         }
 
@@ -128,32 +128,19 @@ public class MouseDrag : MonoBehaviour
             if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < 0.5 && !_peg.blocked){
                 _chosenpeg = _peg;
                 gameObject.transform.position = _peg.transform.position;
-                _peg.connect(this_wire);
+                _peg.connect(this_component);
 
-                nextPegOver(_chosenpeg).connect(this_wire);
+                nextPegOver(_chosenpeg).connect(this_component);
+
+                this_component.setPegs(_chosenpeg, nextPegOver(_chosenpeg));
 
                 snapped = true;
+
+                break;
             }
         }
 
-        // if(Vector3.Distance(transform.position, _peg.transform.position) < 0.5){
-        //     transform.position = _peg.transform.position;
-        // }
-
-
-        // transform.position = GetMouseAsWorldPoint() + mOffset;
-        // float smallestDistance = snapDistance;
-        // foreach (Transform node in transform)
-        // {
-        //     Debug.Log("Node:"+ node.name);
-            
-        //     if (Vector3.Distance(node.position, targetPosition) < smallestDistance)
-        //     {
-                
-        //         transform.position = node.position;
-        //         smallestDistance = Vector3.Distance(node.position, targetPosition);
-        //     } 
-        //  }
+        c_lab.constructCircuits();
 
 
     }
