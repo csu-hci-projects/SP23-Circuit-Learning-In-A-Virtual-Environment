@@ -26,6 +26,8 @@ public abstract class CircuitComponent : MonoBehaviour
     const double SignificantCurrent = 0.0000001;
     const float LabelOffset = 0.022f;
 
+    public float transformAdjust = 1f;
+
     protected CircuitComponent()
     {
         IsPlaced = false;
@@ -43,9 +45,17 @@ public abstract class CircuitComponent : MonoBehaviour
         {
             addedend.owner = this;
         }
+
+        Lab = (CircuitLab)FindObjectOfType(typeof(CircuitLab));
     }
 
     protected abstract void Update();
+
+    public void setScale()
+    {
+        transformAdjust = (float)(Lab.scaleAdjust);
+        gameObject.transform.localScale = gameObject.transform.localScale * transformAdjust;
+    }
 
     public void Place(Point start, Direction dir)
     {

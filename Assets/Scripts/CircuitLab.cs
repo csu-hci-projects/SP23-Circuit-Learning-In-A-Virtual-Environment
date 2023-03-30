@@ -18,22 +18,24 @@ public class CircuitLab : MonoBehaviour
 {
     // public members found in Unity inspector
     public GameObject pegTemplate = null;
-    public float pegInterval = 0.1f;
+    public float pegInterval;
     public float pegHeight = 0.45f;
     public Vector3 pegScale;
     public bool isWorldFixed;
 
-
-    //public List<PegSnap> _pegs = new List<PegSnap>();
     
     Board board;
-    const int numRows = 9;
-    const int numCols = 9;
+    int numRows;
+    int numCols;
+
+    public int numSquare;
+    public float scaleAdjust = 1f;
 
 
     public PegSnap[,] _allPegs;
     public List<PegSnap> _listPegs;
 
+    public CircuitComponent[] allComponents;
 
     //List<IDynamic> dynamicComponents = new List<IDynamic>();
     int numActiveCircuits = 0;
@@ -41,11 +43,23 @@ public class CircuitLab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _allPegs = new PegSnap[numRows, numCols];
+        numRows = numCols = numSquare;
+
+        pegInterval = 1.0f / (float)(numSquare + 1);
+        scaleAdjust = 9.0f / (float)numSquare;
+
+        _allPegs = new PegSnap[numSquare, numSquare];
         _listPegs = new List<PegSnap>();
 
-        board = new Board(numRows,numCols);
+        allComponents = FindObjectsOfType<CircuitComponent>();
+
+        board = new Board(numSquare, numSquare);
         CreatePegs();
+
+        foreach (CircuitComponent V in allComponents)
+        {
+            V.setScale();
+        }
     }
 
 
@@ -89,7 +103,7 @@ public class CircuitLab : MonoBehaviour
         peg.transform.parent = boardObject.transform;
         peg.transform.localPosition = position;
         peg.transform.localRotation = rotation;
-        peg.transform.localScale = pegScale;
+        peg.transform.localScale = pegScale * scaleAdjust;
 
         peg.name = name;
         
