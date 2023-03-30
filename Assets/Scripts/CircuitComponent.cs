@@ -12,8 +12,8 @@ public abstract class CircuitComponent : MonoBehaviour
     [SerializeField]
     protected List<ComponentEnd> ends;
 
-    [SerializeField]
-    protected List<CircuitComponent> touchingComponents;
+    //[SerializeField]
+    public List<CircuitComponent> touchingComponents;
 
     protected Point StartingPeg { get; set; }
 
