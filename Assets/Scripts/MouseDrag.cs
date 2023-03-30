@@ -133,27 +133,12 @@ public class MouseDrag : MonoBehaviour
                 nextPegOver(_chosenpeg).connect(this_component);
 
                 snapped = true;
+
+                break;
             }
         }
 
-        // if(Vector3.Distance(transform.position, _peg.transform.position) < 0.5){
-        //     transform.position = _peg.transform.position;
-        // }
-
-
-        // transform.position = GetMouseAsWorldPoint() + mOffset;
-        // float smallestDistance = snapDistance;
-        // foreach (Transform node in transform)
-        // {
-        //     Debug.Log("Node:"+ node.name);
-            
-        //     if (Vector3.Distance(node.position, targetPosition) < smallestDistance)
-        //     {
-                
-        //         transform.position = node.position;
-        //         smallestDistance = Vector3.Distance(node.position, targetPosition);
-        //     } 
-        //  }
+        c_lab.constructCircuits();
 
 
     }

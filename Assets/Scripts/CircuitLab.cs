@@ -6,12 +6,12 @@ using UnityEngine;
 //using SpiceSharp.Simulations;
 //using UnityEngine.XR.Interaction.Toolkit;
 
-struct Circuit
+public class Circuit
 {
-    public float resistance;
-    public float current;
+    public float resistance = 0f;
+    public float current = 0f;
 
-    public List<CircuitComponent> ownComponents;
+    public List<CircuitComponent> ownComponents = new List<CircuitComponent>();
 }
 
 public class CircuitLab : MonoBehaviour
@@ -23,7 +23,7 @@ public class CircuitLab : MonoBehaviour
     public Vector3 pegScale;
     public bool isWorldFixed;
 
-    
+
     Board board;
     int numRows;
     int numCols;
@@ -37,8 +37,10 @@ public class CircuitLab : MonoBehaviour
 
     public CircuitComponent[] allComponents;
 
+    private List<Circuit> allCircuits = new List<Circuit>();
+
     //List<IDynamic> dynamicComponents = new List<IDynamic>();
-    int numActiveCircuits = 0;
+    public int numCircuits = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -67,22 +69,22 @@ public class CircuitLab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void CreatePegs(){
+    public void CreatePegs() {
 
         // Creates a matrix of pegs
-        for(int i = 0; i < numRows; i++)
+        for (int i = 0; i < numRows; i++)
         {
-            for(int j = 0; j < numCols; j++){
-                _allPegs[i,j] = CreatePeg(i,j);
+            for (int j = 0; j < numCols; j++) {
+                _allPegs[i, j] = CreatePeg(i, j);
                 _listPegs.Add(_allPegs[i, j]);
             }
         }
     }
 
-    private PegSnap CreatePeg(int row, int col){
+    private PegSnap CreatePeg(int row, int col) {
 
         // create peg name
         string name = "Peg_" + row.ToString() + "_" + col.ToString();
@@ -97,7 +99,7 @@ public class CircuitLab : MonoBehaviour
         var boardZPos = boardObject.transform.position.z;
 
         // Create a new peg
-        var position = new Vector3(-(boardWidth / 2.0f) + ((col + 1) * pegInterval)+(boardWidth/2)-0.5f, pegHeight, -(boardHeight / 2.0f) + ((row + 1) * pegInterval)+(boardHeight/2)-0.5f);
+        var position = new Vector3(-(boardWidth / 2.0f) + ((col + 1) * pegInterval) + (boardWidth / 2) - 0.5f, pegHeight, -(boardHeight / 2.0f) + ((row + 1) * pegInterval) + (boardHeight / 2) - 0.5f);
         var rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         var peg = Instantiate(pegTemplate, position, rotation) as GameObject;
         peg.transform.parent = boardObject.transform;
@@ -106,8 +108,8 @@ public class CircuitLab : MonoBehaviour
         peg.transform.localScale = pegScale * scaleAdjust;
 
         peg.name = name;
-        
-        
+
+
 
         Point coords = new Point(row, col);
         board.SetPegGameObject(coords, peg);
@@ -153,9 +155,7 @@ public class CircuitLab : MonoBehaviour
             script.SetActive(false, false);
         }
 
-        // Run a new circuit simulation so that any circuits we've just broken get deactivated
-        //SimulateCircuit();
-        //REPLACE THIS WITH CONSTRUCTCIRCUITS() WHEN DONE
+        constructCircuits();
     }
 
     public void BlockPegs(Point start, Point end, bool block)
@@ -182,6 +182,29 @@ public class CircuitLab : MonoBehaviour
                 board.BlockPeg(coords, block);
             }
         }
+    }
+
+    public void constructCircuits()
+    {
+
+        Debug.Log("Construct circuits");
+
+        List<CircuitComponent> unvisited = new List<CircuitComponent>(allComponents);
+
+        while (unvisited.Count != 0)
+        {
+            //Debug.Log("loop " + unvisited.Count);
+            CircuitComponent thisItem = unvisited[0];
+            unvisited.Remove(thisItem);
+
+            Circuit thisCircuit = new Circuit { ownComponents = new List<CircuitComponent>() };
+            numCircuits += 1;
+
+            thisCircuit.ownComponents.Add(thisItem);
+
+            allCircuits.Add(thisCircuit);
+        }
+
     }
 
 }

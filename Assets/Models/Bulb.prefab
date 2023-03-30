@@ -842,6 +842,10 @@ PrefabInstance:
       propertyPath: this_wire
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9047485955768759428, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
+      propertyPath: this_component
+      value: 
+      objectReference: {fileID: 8943480093881138201}
     m_RemovedComponents:
     - {fileID: 5473590982317545488, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
