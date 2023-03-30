@@ -132,6 +132,8 @@ public class MouseDrag : MonoBehaviour
 
                 nextPegOver(_chosenpeg).connect(this_component);
 
+                this_component.setPegs(_chosenpeg, nextPegOver(_chosenpeg));
+
                 snapped = true;
 
                 break;

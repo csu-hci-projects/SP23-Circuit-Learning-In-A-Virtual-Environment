@@ -15,10 +15,16 @@ public abstract class CircuitComponent : MonoBehaviour
     [SerializeField]
     protected List<CircuitComponent> touchingComponents;
 
+    protected Point StartingPeg { get; set; }
+
     public bool IsPlaced { get; protected set; }
     public bool IsHeld { get; protected set; }
 
-    protected Point StartingPeg { get; set; }
+    public PegSnap startPeg;
+    public PegSnap endPeg;
+
+
+
     protected Direction Direction { get; set; }
     protected bool IsActive { get; set; }
     protected bool IsForward { get; set; }
@@ -27,6 +33,7 @@ public abstract class CircuitComponent : MonoBehaviour
     const float LabelOffset = 0.022f;
 
     public float transformAdjust = 1f;
+
 
     protected CircuitComponent()
     {
@@ -55,6 +62,12 @@ public abstract class CircuitComponent : MonoBehaviour
     {
         transformAdjust = (float)(Lab.scaleAdjust);
         gameObject.transform.localScale = gameObject.transform.localScale * transformAdjust;
+    }
+
+    public void setPegs(PegSnap start, PegSnap end)
+    {
+        startPeg = start;
+        endPeg = end;
     }
 
     public void Place(Point start, Direction dir)
@@ -170,6 +183,7 @@ public virtual void SetActive(bool isActive, bool isForward)
         label.transform.localPosition = position;
     }
 }
+
 
 public enum Direction { North, South, East, West };
 
