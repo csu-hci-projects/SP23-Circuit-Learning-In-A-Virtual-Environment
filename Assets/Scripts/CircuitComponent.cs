@@ -79,13 +79,10 @@ public abstract class CircuitComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided with " + other.gameObject.name + " !");
         if (other.gameObject.name.Contains("End") && !touchingComponents.Contains(other.gameObject.GetComponent<ComponentEnd>().owner))
         {
             touchingComponents.Add(other.gameObject.GetComponent<ComponentEnd>().owner);
             other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Add(this);
-
-            Debug.Log("Object added to colliders list");
         }
     }
 
@@ -95,8 +92,6 @@ public abstract class CircuitComponent : MonoBehaviour
         {
             touchingComponents.Remove(other.gameObject.GetComponent<ComponentEnd>().owner);
             other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Remove(this);
-
-            Debug.Log("Object removed from colliders list");
         }
     }
 
@@ -111,7 +106,7 @@ public virtual void SetActive(bool isActive, bool isForward)
     {
     }
 
-    public virtual void SelectEntered()
+    /*public virtual void SelectEntered()
     {
         IsHeld = true;
 
@@ -137,7 +132,7 @@ public virtual void SetActive(bool isActive, bool isForward)
         // Make sure gravity is enabled any time we release the object
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().useGravity = true;
-    }
+    }*/
 
     protected IEnumerator PlaySound(AudioSource source, float delay)
     {

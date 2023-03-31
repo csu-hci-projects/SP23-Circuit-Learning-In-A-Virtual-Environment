@@ -25,7 +25,6 @@ public class PegSnap : MonoBehaviour
 
     public void connect(CircuitComponent connected)
     {
-        Debug.Log(row + " " + col + " Connect") ;
         attachedComponents.Add(connected);
         if (attachedComponents.Count >= 2)
         {
@@ -35,7 +34,6 @@ public class PegSnap : MonoBehaviour
 
     public void disconnect(CircuitComponent connected)
     {
-        Debug.Log(row + " " + col + " Disconnect");
         attachedComponents.Remove(connected);
         if (attachedComponents.Count < 2)
         {
