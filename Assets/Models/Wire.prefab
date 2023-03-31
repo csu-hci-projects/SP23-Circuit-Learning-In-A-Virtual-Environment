@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   c_lab: {fileID: 0}
-  this_wire: {fileID: 0}
+  this_component: {fileID: 5473590982317545488}
   vertical: 0
   snapped: 0
   _chosenpeg: {fileID: 0}
