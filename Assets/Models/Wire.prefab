@@ -427,8 +427,9 @@ MonoBehaviour:
   touchingComponents: []
   startPeg: {fileID: 0}
   endPeg: {fileID: 0}
-  resistance: 0.01
+  resistance: 0.3
   transformAdjust: 1
+  circuitIndex: 0
 --- !u!136 &5445385167568683348
 CapsuleCollider:
   m_ObjectHideFlags: 0

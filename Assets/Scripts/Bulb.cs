@@ -6,9 +6,9 @@ public class Bulb : CircuitComponent
 {
     [SerializeField] Light bulbLight;
 
-    public Material unlit;
-    public Material lit;
-    public GameObject filament;
+    [SerializeField] Material unlit;
+    [SerializeField] Material lit;
+    [SerializeField] GameObject filament;
 
     protected override void Update() {
         /*
@@ -20,7 +20,10 @@ public class Bulb : CircuitComponent
         if (touchingComponents.Count == 2)
         {
             bulbLight.intensity = ownCircuit.current;
-            filament.GetComponent<MeshRenderer>().material = lit;
+            if (bulbLight.intensity > 0.01) { filament.GetComponent<MeshRenderer>().material = lit; }
+            else  {
+                filament.GetComponent<MeshRenderer>().material = unlit; }
+           
         }
         else
         {
