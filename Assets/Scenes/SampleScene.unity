@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18343015, g: 0.22901827, b: 0.30596024, a: 1}
+  m_IndirectSpecularColor: {r: 0.1834299, g: 0.22901782, b: 0.30595973, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -593,7 +593,7 @@ MonoBehaviour:
   pegHeight: 0.45
   pegScale: {x: 0.02, y: 0.2, z: 0.02}
   isWorldFixed: 0
-  numSquare: 4
+  numSquare: 9
   scaleAdjust: 0
   _listPegs: []
   allComponents: []
@@ -770,6 +770,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 35.243, y: -151.339, z: -35.107}
+--- !u!1 &811426458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5723020262788236802, guid: f8de83adfa0456e45af6318599ebc571, type: 3}
+  m_PrefabInstance: {fileID: 1327204312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &811426463
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811426458}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.06415041
+  m_Center: {x: 0, y: 0.09257837, z: -0.11156435}
 --- !u!1001 &815183812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -829,7 +847,26 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7582547981124432485, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
+      propertyPath: m_Height
+      value: 0.25230706
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582547981124432485, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
+      propertyPath: m_Radius
+      value: 0.025942087
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582547981124432485, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
+      propertyPath: m_Center.x
+      value: -0.00049338344
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582547981124432485, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
+      propertyPath: m_Center.z
+      value: -0.09827768
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6329847098641923769, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
+    - {fileID: 4882096086181574909, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
+    - {fileID: 8165084141778376410, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
 --- !u!1 &961683199
 GameObject:
@@ -1342,6 +1379,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a039d4e82f3ac044bfd8300ccc3fc7d, type: 3}
+--- !u!1 &1322183931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5272323357935076126, guid: 9ffd25e5fcf606b4ca5a19b0cdff632f, type: 3}
+  m_PrefabInstance: {fileID: 963316394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1322183936
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322183931}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.055274867
+  m_Height: 0.16631067
+  m_Direction: 2
+  m_Center: {x: -0.00061273575, y: -0.00051834586, z: -0.09841627}
 --- !u!1001 &1327204312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1747,7 +1803,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6329847098641923769, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
+    - {fileID: 4882096086181574909, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
+    - {fileID: 8165084141778376410, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 80beeed2541d4ef4eb447125b64c031d, type: 3}
 --- !u!1001 &1699398256
 PrefabInstance:
