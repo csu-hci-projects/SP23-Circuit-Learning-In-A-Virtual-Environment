@@ -264,7 +264,7 @@ public class CircuitLab : MonoBehaviour
 
         if (thisItem.touchingComponents.Count != 2)
         {
-            //return false;
+            return false;
         }
 
         if (visited.Contains(thisItem.touchingComponents[0]) && visited.Contains(thisItem.touchingComponents[1]))

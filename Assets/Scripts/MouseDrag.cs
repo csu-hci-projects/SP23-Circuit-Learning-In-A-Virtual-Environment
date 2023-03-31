@@ -119,10 +119,14 @@ public class MouseDrag : MonoBehaviour
                 _chosenpeg = _peg;
                 gameObject.transform.position = _peg.transform.position;
                 _peg.connect(this_component);
+                this_component.startPeg = _peg;
 
-                nextPegOver(_chosenpeg).connect(this_component);
+                nextPegOver(_peg).connect(this_component);
+                this_component.endPeg = nextPegOver(_peg);
 
                 snapped = true;
+
+                break;
             }
         }
 

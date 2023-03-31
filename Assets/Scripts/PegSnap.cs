@@ -25,9 +25,11 @@ public class PegSnap : MonoBehaviour
 
     public void connect(CircuitComponent connected)
     {
+        //Debug.Log("Connected " + row + " " + col);
         foreach (CircuitComponent toAdd in attachedComponents)
         {
             connected.touchingComponents.Add(toAdd);
+            toAdd.touchingComponents.Add(connected);
         }
 
         attachedComponents.Add(connected);
@@ -41,10 +43,12 @@ public class PegSnap : MonoBehaviour
 
     public void disconnect(CircuitComponent connected)
     {
-        foreach (CircuitComponent toAdd in attachedComponents)
+        //Debug.Log("Disconnected " + row + " " + col);
+        foreach (CircuitComponent toRemove in attachedComponents)
         {
-            if (toAdd == connected) { continue;  }
-            connected.touchingComponents.Add(toAdd);
+            if (toRemove == connected) { continue;  }
+            connected.touchingComponents.Remove(toRemove);
+            toRemove.touchingComponents.Remove(connected);
         }
 
         attachedComponents.Remove(connected);
