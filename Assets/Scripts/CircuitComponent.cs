@@ -7,7 +7,7 @@ public enum LabelAlignment { Top, Bottom, Center };
 public abstract class CircuitComponent : MonoBehaviour
 {
     [SerializeField]
-    private CircuitLab Lab;
+    protected CircuitLab Lab;
 
     [SerializeField]
     protected List<ComponentEnd> ends;
@@ -23,7 +23,7 @@ public abstract class CircuitComponent : MonoBehaviour
     public PegSnap startPeg;
     public PegSnap endPeg;
 
-    public float resistance;
+    public float resistance = 0.01f;
 
     protected Direction Direction { get; set; }
     protected bool IsActive { get; set; }
@@ -34,6 +34,8 @@ public abstract class CircuitComponent : MonoBehaviour
 
     public float transformAdjust = 1f;
 
+    public int circuitIndex;
+    public Circuit ownCircuit;
 
     protected CircuitComponent()
     {
@@ -64,19 +66,7 @@ public abstract class CircuitComponent : MonoBehaviour
         gameObject.transform.localScale = gameObject.transform.localScale * transformAdjust;
     }
 
-    public void setPegs(PegSnap start, PegSnap end)
-    {
-        startPeg = start;
-        endPeg = end;
-    }
-
-    public void Place(Point start, Direction dir)
-    {
-        IsPlaced = true;
-        StartingPeg = start;
-        Direction = dir;
-    }
-
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name.Contains("End") && !touchingComponents.Contains(other.gameObject.GetComponent<ComponentEnd>().owner))
@@ -84,7 +74,7 @@ public abstract class CircuitComponent : MonoBehaviour
             touchingComponents.Add(other.gameObject.GetComponent<ComponentEnd>().owner);
             other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Add(this);
         }
-    }
+    }*/
 
     private void OnTriggerExit(Collider other)
     {
@@ -105,6 +95,7 @@ public virtual void SetActive(bool isActive, bool isForward)
     protected virtual void Reset()
     {
     }
+
 
     /*public virtual void SelectEntered()
     {
@@ -134,6 +125,7 @@ public virtual void SetActive(bool isActive, bool isForward)
         GetComponent<Rigidbody>().useGravity = true;
     }*/
 
+    /*
     protected IEnumerator PlaySound(AudioSource source, float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -141,6 +133,8 @@ public virtual void SetActive(bool isActive, bool isForward)
         source.Stop();
         source.Play();
     }
+    */
+
 
     protected void RotateLabel(GameObject label, LabelAlignment alignment)
     {

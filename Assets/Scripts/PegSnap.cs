@@ -25,15 +25,28 @@ public class PegSnap : MonoBehaviour
 
     public void connect(CircuitComponent connected)
     {
+        foreach (CircuitComponent toAdd in attachedComponents)
+        {
+            connected.touchingComponents.Add(toAdd);
+        }
+
         attachedComponents.Add(connected);
         if (attachedComponents.Count >= 2)
         {
             blocked = true;
         }
+
+        
     }
 
     public void disconnect(CircuitComponent connected)
     {
+        foreach (CircuitComponent toAdd in attachedComponents)
+        {
+            if (toAdd == connected) { continue;  }
+            connected.touchingComponents.Add(toAdd);
+        }
+
         attachedComponents.Remove(connected);
         if (attachedComponents.Count < 2)
         {

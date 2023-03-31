@@ -10,8 +10,18 @@ public class Circuit
 {
     public float resistance = 0f;
     public float current = 0f;
+    public float voltage = 0f;
+
+    public int index;
 
     public List<CircuitComponent> ownComponents = new List<CircuitComponent>();
+
+    public void addComponent(CircuitComponent newItem)
+    {
+        ownComponents.Add(newItem);
+        newItem.circuitIndex = index;
+        newItem.ownCircuit = this;
+    }
 }
 
 public class CircuitLab : MonoBehaviour
@@ -37,7 +47,7 @@ public class CircuitLab : MonoBehaviour
 
     public CircuitComponent[] allComponents;
 
-    private List<Circuit> allCircuits = new List<Circuit>();
+    protected List<Circuit> allCircuits = new List<Circuit>();
 
     //List<IDynamic> dynamicComponents = new List<IDynamic>();
     public int numCircuits = 0;
@@ -190,6 +200,7 @@ public class CircuitLab : MonoBehaviour
 
         numCircuits = 0;
         allCircuits = new List<Circuit>();
+        int circuitIndex = 0;
 
         List<CircuitComponent> unvisited = new List<CircuitComponent>(allComponents);
 
@@ -199,21 +210,79 @@ public class CircuitLab : MonoBehaviour
             CircuitComponent thisItem = unvisited[0];
             unvisited.Remove(thisItem);
 
-            Circuit thisCircuit = new Circuit { ownComponents = new List<CircuitComponent>() };
+            Circuit thisCircuit = new Circuit { ownComponents = new List<CircuitComponent>(), index = circuitIndex };
             numCircuits += 1;
+            circuitIndex += 1;
 
-            thisCircuit.ownComponents.Add(thisItem);
+            thisCircuit.addComponent(thisItem);
+            
 
             allCircuits.Add(thisCircuit);
 
-            DepthFirstSearch(thisItem, thisCircuit, unvisited);
+            Construct_DepthFirstSearch(thisItem, thisCircuit, unvisited);
 
-            Debug.Log("Circuit created of size " + thisCircuit.ownComponents.Count);
+        }
+
+        foreach (Circuit thisCircuit in allCircuits)
+        {
+            
+            foreach (CircuitComponent thisComponent in thisCircuit.ownComponents)
+            {
+                thisCircuit.resistance += thisComponent.resistance;
+                if (thisComponent is Battery)
+                {
+                    thisCircuit.voltage += ((Battery)thisComponent).voltage;
+                }
+            }
+
+            if (circuitIsLoop(thisCircuit))
+            {
+                thisCircuit.current = thisCircuit.voltage / thisCircuit.resistance;
+            }
+
+            Debug.Log("Circuit : size " + thisCircuit.ownComponents.Count + ", resistance " + thisCircuit.resistance +
+                ", voltage " + thisCircuit.voltage + ", current " + thisCircuit.current);
         }
 
     }
 
-    private void DepthFirstSearch(CircuitComponent thisItem, Circuit thisCircuit, List<CircuitComponent> unvisited)
+    private bool circuitIsLoop(Circuit testCircuit)
+    {
+        if (testCircuit.ownComponents.Count < 4) //There's no way to have a loop with less than 4, so don't even check.
+        {
+            return false;
+        }
+
+        List<CircuitComponent> visited = new List<CircuitComponent>();
+
+        return DFS_Loop(testCircuit.ownComponents[0], visited);
+    }
+
+    private bool DFS_Loop(CircuitComponent thisItem, List<CircuitComponent> visited)
+    {
+        visited.Add(thisItem);
+
+        if (thisItem.touchingComponents.Count != 2)
+        {
+            //return false;
+        }
+
+        if (visited.Contains(thisItem.touchingComponents[0]) && visited.Contains(thisItem.touchingComponents[1]))
+        {
+            //A component was found that had 2 neighbors, both already visited - so the circuit is a loop!
+            Debug.Log("Loop found!");
+            return true;
+            
+        }
+
+        else
+        {
+            return (DFS_Loop(thisItem.touchingComponents[0], visited) || DFS_Loop(thisItem.touchingComponents[1], visited));
+        }
+
+    }
+
+    private void Construct_DepthFirstSearch(CircuitComponent thisItem, Circuit thisCircuit, List<CircuitComponent> unvisited)
     {
         //Recursively accesses all of the unvisited adjacent components to thisItem, adding them to the circuit and removing
         //them from unvisited
@@ -223,11 +292,23 @@ public class CircuitLab : MonoBehaviour
             if (unvisited.Contains(V))
             {
                 unvisited.Remove(V);
-                thisCircuit.ownComponents.Add(V);
-                DepthFirstSearch(V, thisCircuit, unvisited);
+                thisCircuit.addComponent(V);
+                Construct_DepthFirstSearch(V, thisCircuit, unvisited);
             }
         }
 
     }
 
+    public float getCurrent(int givenIndex)
+    {
+        if (givenIndex < numCircuits)
+        {
+            return allCircuits[givenIndex].current;
+        }
+
+        else
+        {
+            return 0.0f;
+        }
+    }
 }
