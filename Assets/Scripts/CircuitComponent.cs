@@ -23,7 +23,7 @@ public abstract class CircuitComponent : MonoBehaviour
     public PegSnap startPeg;
     public PegSnap endPeg;
 
-
+    public float resistance;
 
     protected Direction Direction { get; set; }
     protected bool IsActive { get; set; }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bulb : CircuitComponent
 {
     [SerializeField] Light bulbLight;
+
+
     protected override void Update() { 
         /*
         if(voltage > 0, and this component is connected on both ends)

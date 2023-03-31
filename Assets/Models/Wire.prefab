@@ -427,6 +427,7 @@ MonoBehaviour:
   touchingComponents: []
   startPeg: {fileID: 0}
   endPeg: {fileID: 0}
+  resistance: 0.01
   transformAdjust: 1
 --- !u!136 &5445385167568683348
 CapsuleCollider:
