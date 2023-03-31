@@ -382,7 +382,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3597286652957839814}
-  - component: {fileID: 8463206691243855240}
   - component: {fileID: 5473590982317545488}
   - component: {fileID: 5445385167568683348}
   - component: {fileID: 9047485955768759428}
@@ -409,22 +408,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &8463206691243855240
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7649148490959827587}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
 --- !u!114 &5473590982317545488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,6 +425,8 @@ MonoBehaviour:
   - {fileID: 4912509423046775074}
   - {fileID: 8176676389941120919}
   touchingComponents: []
+  startPeg: {fileID: 0}
+  endPeg: {fileID: 0}
   transformAdjust: 1
 --- !u!136 &5445385167568683348
 CapsuleCollider:
@@ -453,10 +438,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.023360107
-  m_Height: 0.13198394
+  m_Radius: 0.025942087
+  m_Height: 0.25230706
   m_Direction: 2
-  m_Center: {x: 0.000000008940697, y: 0, z: -0.098510295}
+  m_Center: {x: -0.00049338344, y: 0, z: -0.09827768}
 --- !u!114 &9047485955768759428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   c_lab: {fileID: 0}
-  this_component: {fileID: 5473590982317545488}
+  this_wire: {fileID: 0}
   vertical: 0
   snapped: 0
   _chosenpeg: {fileID: 0}
