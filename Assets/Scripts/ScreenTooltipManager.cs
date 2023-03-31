@@ -29,7 +29,7 @@ public class ScreenTooltipManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textTooltip = null;
 
     public void SetTooltipAtPosWithMessage(Vector3 pos, string message, bool isTwoDimensions = true){
-        if(CircuitLab.isWorldFixed){
+        if(!CircuitLab.isWorldFixed){
         if (Input.GetMouseButton(0))
             tooltipObject.SetActive(false);
         else{
