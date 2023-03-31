@@ -876,7 +876,10 @@ MonoBehaviour:
   - {fileID: 7018791673648735651}
   - {fileID: 6066946038663002902}
   touchingComponents: []
+  startPeg: {fileID: 0}
+  endPeg: {fileID: 0}
   transformAdjust: 1
+  bulbLight: {fileID: 7807609012989393914}
 --- !u!114 &6066946038663002902 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8176676389941120919, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}

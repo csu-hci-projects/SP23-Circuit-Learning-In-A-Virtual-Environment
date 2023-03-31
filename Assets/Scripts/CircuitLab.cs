@@ -186,6 +186,7 @@ public class CircuitLab : MonoBehaviour
 
     public void constructCircuits()
     {
+        Debug.Log("ConstructCircuits");
 
         numCircuits = 0;
         allCircuits = new List<Circuit>();
