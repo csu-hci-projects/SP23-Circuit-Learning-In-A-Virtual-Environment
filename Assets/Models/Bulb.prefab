@@ -880,6 +880,19 @@ MonoBehaviour:
   endPeg: {fileID: 0}
   transformAdjust: 1
   bulbLight: {fileID: 7807609012989393914}
+--- !u!135 &1534561419700645271
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723020262788236802}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.065875106
+  m_Center: {x: -0.00084041955, y: 0.0934788, z: -0.11119957}
 --- !u!114 &6066946038663002902 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8176676389941120919, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
