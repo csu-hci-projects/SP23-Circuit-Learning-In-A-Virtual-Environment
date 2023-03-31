@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 3597286652957839814}
   - component: {fileID: 5473590982317545488}
   - component: {fileID: 5445385167568683348}
+  - component: {fileID: 3680520189166703014}
   - component: {fileID: 9047485955768759428}
   m_Layer: 0
   m_Name: Wire
@@ -442,6 +443,19 @@ CapsuleCollider:
   m_Height: 0.25230706
   m_Direction: 2
   m_Center: {x: -0.00049338344, y: 0, z: -0.09827768}
+--- !u!114 &3680520189166703014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7649148490959827587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be24aee2e6f9640c3b223c6d1f3f27b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltip: testing
 --- !u!114 &9047485955768759428
 MonoBehaviour:
   m_ObjectHideFlags: 0

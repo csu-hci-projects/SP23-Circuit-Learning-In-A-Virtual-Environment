@@ -163,17 +163,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   c_lab: {fileID: 0}
-  c_lab_component: {fileID: 0}
-  _pegs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  this_wire: {fileID: 0}
+  vertical: 0
+  snapped: 0
   _chosenpeg: {fileID: 0}
 --- !u!54 &2788759645748900516
 Rigidbody:
