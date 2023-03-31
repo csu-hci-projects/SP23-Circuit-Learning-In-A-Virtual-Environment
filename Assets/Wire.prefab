@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1889738257598079096}
   - component: {fileID: 5002570990103491273}
   - component: {fileID: 3521199868945165425}
+  - component: {fileID: 5502088738490185999}
   - component: {fileID: -2941531487949856401}
   m_Layer: 0
   m_Name: Wire
@@ -64,6 +65,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5c206a45cc0496e92327ac88598e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  c_lab: {fileID: 0}
+  this_wire: {fileID: 0}
+  vertical: 0
+  snapped: 0
+  _chosenpeg: {fileID: 0}
 --- !u!54 &3521199868945165425
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -80,6 +86,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &5502088738490185999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3425468261600088954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be24aee2e6f9640c3b223c6d1f3f27b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltip: This is a vertical wire component
 --- !u!114 &-2941531487949856401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +113,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positiveConnected: 0
   negativeConnected: 0
+  ends: []
+  touchedObjects: []
+  touchedWires: []
+  connectedBattery: {fileID: 0}
 --- !u!1 &6511636006426569495
 GameObject:
   m_ObjectHideFlags: 0
