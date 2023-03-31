@@ -13,7 +13,7 @@ public class MouseDrag : MonoBehaviour
     private Vector3 mouseOffset;
 
     public CircuitLab c_lab;
-    public Wire this_wire;
+    public CircuitComponent this_component;
 
     public bool vertical;
     public bool snapped = false;
@@ -95,9 +95,9 @@ public class MouseDrag : MonoBehaviour
         mouseOffset = mainCamera.WorldToScreenPoint(gameObject.transform.position) - mousePoint;
         
         if (snapped){
-            _chosenpeg.disconnect(this_wire);
+            _chosenpeg.disconnect(this_component);
 
-            nextPegOver(_chosenpeg).disconnect(this_wire);
+            nextPegOver(_chosenpeg).disconnect(this_component);
         }
 
         snapped = false;
@@ -118,13 +118,15 @@ public class MouseDrag : MonoBehaviour
             if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < snapDistance && !_peg.blocked){
                 _chosenpeg = _peg;
                 gameObject.transform.position = _peg.transform.position;
-                _peg.connect(this_wire);
+                _peg.connect(this_component);
 
-                nextPegOver(_chosenpeg).connect(this_wire);
+                nextPegOver(_chosenpeg).connect(this_component);
 
                 snapped = true;
             }
         }
+
+        c_lab.constructCircuits();
     }
 
 }

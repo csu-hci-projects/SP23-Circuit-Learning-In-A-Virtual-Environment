@@ -1351,7 +1351,23 @@ MonoBehaviour:
   - {fileID: 7431097047423475903}
   - {fileID: 5941745394593873418}
   touchingComponents: []
+  startPeg: {fileID: 0}
+  endPeg: {fileID: 0}
   transformAdjust: 1
+--- !u!136 &113411442764264729
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272323357935076126}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.055
+  m_Height: 0.16
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.1}
 --- !u!114 &5941745394593873418 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8176676389941120919, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
