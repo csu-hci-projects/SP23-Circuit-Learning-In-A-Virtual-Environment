@@ -1349,6 +1349,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7807609012989393914, guid: f8de83adfa0456e45af6318599ebc571, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7864826705920570210, guid: f8de83adfa0456e45af6318599ebc571, type: 3}
       propertyPath: m_Name
       value: Bulb
@@ -1397,8 +1401,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8943480093881138201, guid: f8de83adfa0456e45af6318599ebc571, type: 3}
+      propertyPath: bulbLight
+      value: 
+      objectReference: {fileID: 1327204313}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8de83adfa0456e45af6318599ebc571, type: 3}
+--- !u!108 &1327204313 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 7807609012989393914, guid: f8de83adfa0456e45af6318599ebc571, type: 3}
+  m_PrefabInstance: {fileID: 1327204312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1369964854
 GameObject:
   m_ObjectHideFlags: 0
