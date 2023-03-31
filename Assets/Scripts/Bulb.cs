@@ -6,6 +6,10 @@ public class Bulb : CircuitComponent
 {
     [SerializeField] Light bulbLight;
 
+    public Material unlit;
+    public Material lit;
+    public GameObject filament;
+
     protected override void Update() {
         /*
         if(voltage > 0, and this component is connected on both ends)
@@ -15,10 +19,12 @@ public class Bulb : CircuitComponent
 
         if (touchingComponents.Count == 2)
         {
-            //bulbLight.intensity = ownCircuit.current;
+            bulbLight.intensity = ownCircuit.current;
+            filament.GetComponent<MeshRenderer>().material = lit;
         }
         else
         {
+            filament.GetComponent<MeshRenderer>().material = unlit;
             bulbLight.intensity = 0;
         }
 

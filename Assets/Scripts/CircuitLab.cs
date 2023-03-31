@@ -260,6 +260,10 @@ public class CircuitLab : MonoBehaviour
 
     private bool DFS_Loop(CircuitComponent thisItem, List<CircuitComponent> visited)
     {
+        if (visited.Contains(thisItem)) {
+            return false;
+        }
+
         visited.Add(thisItem);
 
         if (thisItem.touchingComponents.Count != 2)
