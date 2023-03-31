@@ -16,6 +16,7 @@ Added new version of project to repo | Cory Raetz, Steph Didier
 Added snapping to board for components | Terryn Gabel, Ali Branum
 Added logic for a completed circuit | Terryn Gabel, Ali Branum
 Added World-fixed annotations | Cory Raetz
+Updated mouse drag to stop collisions with other components | Terryn Gabel
 
 ## Remaining Tasks
 
