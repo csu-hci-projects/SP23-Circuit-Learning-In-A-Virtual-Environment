@@ -196,7 +196,7 @@ public class CircuitLab : MonoBehaviour
 
     public void constructCircuits()
     {
-        Debug.Log("ConstructCircuits");
+        //Debug.Log("ConstructCircuits");
 
         numCircuits = 0;
         allCircuits = new List<Circuit>();
@@ -240,8 +240,11 @@ public class CircuitLab : MonoBehaviour
                 thisCircuit.current = thisCircuit.voltage / thisCircuit.resistance;
             }
 
-            Debug.Log("Circuit : size " + thisCircuit.ownComponents.Count + ", resistance " + thisCircuit.resistance +
-                ", voltage " + thisCircuit.voltage + ", current " + thisCircuit.current);
+            if (thisCircuit.ownComponents.Count > 1)
+            {
+                Debug.Log("Circuit : size " + thisCircuit.ownComponents.Count + ", resistance " + thisCircuit.resistance +
+                    ", voltage " + thisCircuit.voltage + ", current " + thisCircuit.current);
+            }
         }
 
     }

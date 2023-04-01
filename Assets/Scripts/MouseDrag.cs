@@ -74,6 +74,8 @@ public class MouseDrag : MonoBehaviour
         //_pegs = c_lab_component._listPegs;
         _pegsArray = c_lab._allPegs;
 
+        snapDistance = snapDistance * c_lab.scaleAdjust;
+
         //Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
 
@@ -115,7 +117,14 @@ public class MouseDrag : MonoBehaviour
 
         foreach(PegSnap _peg in _pegsArray){
 
-            if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < snapDistance && !_peg.blocked){
+            if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < snapDistance){
+
+                if (_peg.blocked)
+                {
+                    Debug.Log("Can't connect to blocked peg");
+                    break;
+                }
+
                 _chosenpeg = _peg;
                 gameObject.transform.position = _peg.transform.position;
                 _peg.connect(this_component);
