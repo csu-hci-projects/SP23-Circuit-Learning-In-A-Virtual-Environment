@@ -17,19 +17,25 @@ public class Bulb : CircuitComponent
             bulbLight.intensity = (circuit voltage/circuit resistance) * some scaling coefficient;
         */
 
-        if (touchingComponents.Count == 2)
+        if (touchingComponents.Count == 2 && ownCircuit.current > 0.01)
         {
+            if (bulbLight.enabled == false)
+            {
+                Debug.Log("Lightbulb on");
+            }
+
+            bulbLight.enabled = true;
             bulbLight.intensity = ownCircuit.current;
-            if (bulbLight.intensity > 0.01) { filament.GetComponent<MeshRenderer>().material = lit; }
-            else  {
-                filament.GetComponent<MeshRenderer>().material = unlit; }
-           
+            filament.GetComponent<MeshRenderer>().material = lit;
+
         }
         else
         {
+            bulbLight.enabled = false;
             filament.GetComponent<MeshRenderer>().material = unlit;
             bulbLight.intensity = 0;
-        }
+ 
+    }
 
         /*
         //If the Bulb is on the pegboard, and both ends are connected, turn the light on
