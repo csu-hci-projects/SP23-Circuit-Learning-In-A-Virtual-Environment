@@ -427,7 +427,7 @@ MonoBehaviour:
   touchingComponents: []
   startPeg: {fileID: 0}
   endPeg: {fileID: 0}
-  resistance: 0.3
+  resistance: 0.05
   transformAdjust: 1
   circuitIndex: 0
 --- !u!136 &5445385167568683348
