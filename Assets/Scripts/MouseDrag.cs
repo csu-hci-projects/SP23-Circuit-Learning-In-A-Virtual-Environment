@@ -6,24 +6,18 @@ using UnityEngine;
 
 public class MouseDrag : MonoBehaviour
 {
+    [SerializeField] private CircuitLab _lab;
+    private PegSnap[,] _pegsArray;
+    [SerializeField] private CircuitComponent _thisComponent;
+    [SerializeField] private bool _vertical;
+
+    private const float LIFT_DISTANCE = -0.45f;
+    private const float DEFAULT_HEIGHT = 12.45f;
+    private const float SNAP_DISTANCE = 0.5f;
+
     private Camera mainCamera;
-    private float ZPlane;
-    private float ZLiftDistance = -0.45f; // change to 0 to disable lift
-    private float ZBase = 12.45f;
-    private Vector3 mouseOffset;
-
-    public CircuitLab c_lab;
-    public CircuitComponent this_component;
-
-    public bool vertical;
-    public bool snapped = false;
-    private float snapDistance = 0.5f;
-
-    public PegSnap[,] _pegsArray;
-
-    private PegSnap _peg;
-    public PegSnap _chosenpeg;
-
+    private Vector3 _mouseOffset;
+    private float _height;
 
     void Start()
     {
