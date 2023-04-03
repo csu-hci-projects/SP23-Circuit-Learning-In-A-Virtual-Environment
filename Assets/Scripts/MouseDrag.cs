@@ -63,8 +63,6 @@ public class MouseDrag : MonoBehaviour
 
     IEnumerator PegListCoroutine()
     {
-        //Print the time of when the function is first called.
-        //Debug.Log("Started Coroutine at timestamp : " + Time.time);
 
         //yield on a new YieldInstruction that waits for 1 seconds.
         yield return new WaitForSeconds(1);
@@ -73,8 +71,6 @@ public class MouseDrag : MonoBehaviour
 
         //_pegs = c_lab_component._listPegs;
         _pegsArray = c_lab._allPegs;
-
-        //Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
 
     void OnMouseDrag(){
