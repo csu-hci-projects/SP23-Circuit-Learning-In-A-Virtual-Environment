@@ -73,16 +73,6 @@ public class Board {
         Components.Clear();
     }
 
-    public void AddComponent(PlacedComponent component)
-    {
-        // Add it to our master list of components
-        Components.Add(component);
-
-        // Link the new component to both the starting and ending pegs
-        Pegs[component.Start.y, component.Start.x].Components.Add(component);
-        Pegs[component.End.y, component.End.x].Components.Add(component);
-    }
-
     public Peg GetPeg(Point coords)
     {
         if (coords.x < 0 || coords.x >= Cols || coords.y < 0 || coords.y >= Rows)
@@ -99,15 +89,5 @@ public class Board {
             return;
         }
         Pegs[coords.y, coords.x].GameObject = gameObject;
-    }
-
-    public void BlockPeg(Point coords, bool block)
-    {
-        Peg peg = GetPeg(coords);
-        if (peg != null)
-        {
-            peg.GameObject.SetActive(!block);
-            peg.IsBlocked = block;
-        }
     }
 }
