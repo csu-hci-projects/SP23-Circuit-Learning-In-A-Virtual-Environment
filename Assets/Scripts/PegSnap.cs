@@ -11,18 +11,6 @@ public class PegSnap : MonoBehaviour
     public int row;
     public int col;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void connect(CircuitComponent connected)
     {
         attachedComponents.Add(connected);
