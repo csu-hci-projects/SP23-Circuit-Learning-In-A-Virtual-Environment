@@ -129,42 +129,6 @@ public class CircuitLab : MonoBehaviour
         return pegComponent;
     }
 
-    public void RemoveComponent(GameObject component, Point start)
-    {
-        Peg pegA = board.GetPeg(start);
-        if (pegA != null)
-        {
-            PlacedComponent found = pegA.Components.Find(x => x.GameObject == component);
-            if (found != null)
-            {
-                Peg pegB = board.GetPeg(found.End);
-                if (pegB != null)
-                {
-                    // Remove it from each of the pegs it's attached to
-                    if (!pegA.Components.Remove(found))
-                        Debug.Log("Failed to remove component from Peg A!");
-                    if (!pegB.Components.Remove(found))
-                        Debug.Log("Failed to remove component from Peg B!");
-
-                    // Remove it from the master list as well
-                    board.Components.Remove(found);
-
-                    // Unblock/unhide intermediate pegs
-                    BlockPegs(found.Start, found.End, false);
-                }
-            }
-        }
-
-        // Deactivate the component
-        var script = component.GetComponent<CircuitComponent>();
-        if (script != null)
-        {
-            script.SetActive(false, false);
-        }
-
-        constructCircuits();
-    }
-
     public void BlockPegs(Point start, Point end, bool block)
     {
         // Hide all pegs between start and end
