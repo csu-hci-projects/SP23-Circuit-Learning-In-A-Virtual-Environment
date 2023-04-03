@@ -129,32 +129,6 @@ public class CircuitLab : MonoBehaviour
         return pegComponent;
     }
 
-    public void BlockPegs(Point start, Point end, bool block)
-    {
-        // Hide all pegs between start and end
-        List<Point> points = new List<Point>();
-        if (start.x != end.x)
-        {
-            int xStart = (start.x < end.x ? start.x : end.x);
-            int xEnd = (start.x < end.x ? end.x : start.x);
-            for (int x = xStart + 1; x < xEnd; x++)
-            {
-                Point coords = new Point(x, start.y);
-                board.BlockPeg(coords, block);
-            }
-        }
-        if (start.y != end.y)
-        {
-            int yStart = (start.y < end.y ? start.y : end.y);
-            int yEnd = (start.y < end.y ? end.y : start.y);
-            for (int y = yStart + 1; y < yEnd; y++)
-            {
-                Point coords = new Point(start.x, y);
-                board.BlockPeg(coords, block);
-            }
-        }
-    }
-
     public void constructCircuits()
     {
         Debug.Log("ConstructCircuits");
