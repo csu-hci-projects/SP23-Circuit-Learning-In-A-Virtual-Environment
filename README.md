@@ -16,6 +16,13 @@ Added new version of project to repo | Cory Raetz, Steph Didier
 Added snapping to board for components | Terryn Gabel, Ali Branum
 Added logic for a completed circuit | Terryn Gabel, Ali Branum
 Added World-fixed annotations | Cory Raetz
+Updated mouse drag to stop collisions with other components | Terryn Gabel
+Added Main Menu scene | Cory Raetz
+Added functions to switch between scenes | Cory Raetz
+Added Buttons and logic to select annotation type | Cory Raetz
+Added Screen fixed annotation panel | Cory Raetz
+Added functionality to save participant data | Cory Raetz
+Added field for entering participant ID | Cory Raetz
 
 ## Remaining Tasks
 

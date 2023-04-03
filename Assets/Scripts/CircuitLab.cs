@@ -31,9 +31,10 @@ public class CircuitLab : MonoBehaviour
     public float pegInterval;
     public float pegHeight = 0.45f;
     public Vector3 pegScale;
-    public bool isWorldFixed;
-
-
+    public static bool isWorldFixed;
+    public GameObject screenFixed = null;
+    public int levelNumber = 1;
+    public DataManager dataManager;
     Board board;
     int numRows;
     int numCols;
@@ -55,6 +56,10 @@ public class CircuitLab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(levelNumber ==1){
+            UIMainMenu.participantData.level01time = Time.time;
+        }
+        screenFixed.SetActive(isWorldFixed);
         numRows = numCols = numSquare;
 
         pegInterval = 1.0f / (float)(numSquare + 1);
@@ -72,6 +77,8 @@ public class CircuitLab : MonoBehaviour
         {
             V.setScale();
         }
+
+       dataManager.Save();
     }
 
 
