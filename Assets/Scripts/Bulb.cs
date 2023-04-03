@@ -13,8 +13,7 @@ public class Bulb : CircuitComponent
         */
 
         //If the Bulb is on the pegboard, and both ends are connected, turn the light on
-        if((startPeg != null && endPeg != null) && 
-            (startPeg.attachedComponents.Count == 2 && endPeg.attachedComponents.Count == 2)){
+        if(touchingComponents.Count >= 2){
             bulbLight.intensity = 1;
             bulbLight.enabled = true; 
         } else {
