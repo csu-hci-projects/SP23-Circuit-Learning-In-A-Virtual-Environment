@@ -5,6 +5,9 @@ using CompleteUI;
 
 public class Battery : CircuitComponent
 {
+
+    public float voltage = 5f;
+
     // Update is called once per frame
     protected override void Update()
     {

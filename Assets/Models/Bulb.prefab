@@ -211,12 +211,12 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1153130587993776559}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.94096625, b: 0.7216981, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0
   m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -859,6 +859,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7649148490959827587, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
   m_PrefabInstance: {fileID: 2687378620170318977}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &1534561419700645271
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723020262788236802}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.065875106
+  m_Center: {x: -0.00084041955, y: 0.0934788, z: -0.11119957}
 --- !u!114 &8943480093881138201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,21 +891,13 @@ MonoBehaviour:
   touchingComponents: []
   startPeg: {fileID: 0}
   endPeg: {fileID: 0}
+  resistance: 5
   transformAdjust: 1
+  circuitIndex: 0
   bulbLight: {fileID: 7807609012989393914}
---- !u!135 &1534561419700645271
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5723020262788236802}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.065875106
-  m_Center: {x: -0.00084041955, y: 0.0934788, z: -0.11119957}
+  unlit: {fileID: 2100000, guid: f003642f41a98d644b9610ee657e8480, type: 2}
+  lit: {fileID: 2100000, guid: 8f5aa7d81b4786b42a021e01c01479ab, type: 2}
+  filament: {fileID: 7864826705635846673}
 --- !u!114 &6066946038663002902 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8176676389941120919, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
