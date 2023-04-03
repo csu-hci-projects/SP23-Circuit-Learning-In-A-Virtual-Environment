@@ -6,16 +6,14 @@ public enum LabelAlignment { Top, Bottom, Center };
 
 public abstract class CircuitComponent : MonoBehaviour
 {
-    [SerializeField]
-    private CircuitLab Lab;
+    [SerializeField] protected CircuitLab Lab;
 
-    [SerializeField]
-    protected List<ComponentEnd> ends;
+    [SerializeField] protected List<ComponentEnd> ends;
 
     [SerializeField] protected List<PegSnap> connectedPegs = new List<PegSnap>();
 
-    const double SignificantCurrent = 0.0000001;
-    const float LabelOffset = 0.022f;
+    const double SIGNIFICANT_CURRENT = 0.0000001;
+    const float LABEL_OFFSET = 0.022f;
 
     public float transformAdjust = 1f;
 
