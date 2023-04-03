@@ -593,6 +593,8 @@ MonoBehaviour:
   pegHeight: 0.45
   pegScale: {x: 0.02, y: 0.2, z: 0.02}
   screenFixed: {fileID: 2094383816}
+  levelNumber: 1
+  dataManager: {fileID: 2122360566}
   numSquare: 9
   scaleAdjust: 0
   _listPegs: []
@@ -2852,3 +2854,48 @@ MonoBehaviour:
   tooltipObject: {fileID: 1967283865}
   transformTooltip: {fileID: 1967283866}
   textTooltip: {fileID: 439819453}
+--- !u!1 &2122360564
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2122360565}
+  - component: {fileID: 2122360566}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2122360565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122360564}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.89643, y: -57.155563, z: -0.24805315}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2122360566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122360564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9128b7b1e9e6547029af86efa25f30e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  file: data.txt
