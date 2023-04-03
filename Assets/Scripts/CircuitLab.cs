@@ -163,7 +163,7 @@ public class CircuitLab : MonoBehaviour
         //Recursively accesses all of the unvisited adjacent components to thisItem, adding them to the circuit and removing
         //them from unvisited
         
-        foreach (CircuitComponent V in thisItem.touchingComponents)
+        foreach (CircuitComponent V in thisItem.pegConnections())
         {
             if (unvisited.Contains(V))
             {

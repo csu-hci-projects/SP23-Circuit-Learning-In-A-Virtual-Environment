@@ -25,104 +25,93 @@ public class MouseDrag : MonoBehaviour
     public PegSnap _chosenpeg;
 
 
+    void Start()
+    {
+        IEnumerator PegListCoroutine()
+        {
+            //yield on a new YieldInstruction that waits for 1 seconds.
+            yield return new WaitForSeconds(1);
+
+            _lab = GameObject.Find("CircuitLab").GetComponent<CircuitLab>();
+
+            //_pegs = c_lab_component._listPegs;
+            _pegsArray = _lab._allPegs;
+        }
+        StartCoroutine(PegListCoroutine());
+        mainCamera = Camera.main;
+        // CameraZDistance = mainCamera.WorldToScreenPoint(transform.position).z;
+    }
+
+    void OnMouseDrag()
+    {
+        moveToMouse();
+    }
+
+    void OnMouseDown()
+    {
+        _height = DEFAULT_HEIGHT + LIFT_DISTANCE;
+
+        // calculate offest of mouse from object
+        Vector3 mousePoint = Input.mousePosition;
+        mousePoint.z = _height;
+        _mouseOffset = mainCamera.WorldToScreenPoint(gameObject.transform.position) - mousePoint;
+        
+        if (_thisComponent.isSnapped())
+        {
+            _thisComponent.disconnect();
+        }
+    }
+
+
+    void OnMouseUp()
+    {
+        _height = DEFAULT_HEIGHT;
+        moveToMouse();
+
+        Debug.Log(_lab._allPegs.ToString());
+        Debug.Log(_pegsArray.ToString());
+        foreach(PegSnap peg in _pegsArray)
+        {
+            if(Vector3.Distance(gameObject.transform.position, peg.transform.position) < SNAP_DISTANCE && !peg.blocked){
+                gameObject.transform.position = peg.transform.position;
+
+                List<PegSnap> pegsToConnect = new List<PegSnap>() { peg, nextPegOver(peg) };
+                _thisComponent.connect(pegsToConnect);
+            }
+        }
+
+        _lab.constructCircuits();
+    }
+
     private PegSnap nextPegOver(PegSnap given)
     {
         PegSnap otherPeg = null;
-        if (vertical)
+        if (_vertical)
         {
-            int newRow = given.row - 1;
+            int newRow = --given.row;
             if (newRow >= 0)
             {
-                 otherPeg = c_lab._allPegs[newRow, given.col];
+                otherPeg = _lab._allPegs[newRow, given.col];
             }
         }
         else
         {
-            int newCol = given.col - 1;
+            int newCol = --given.col;
             if (newCol >= 0)
             {
-                 otherPeg = c_lab._allPegs[given.row, newCol];
+                otherPeg = _lab._allPegs[given.row, newCol];
             }
         }
 
         return otherPeg;
     }
 
-
-    void Start()
+    private void moveToMouse()
     {
-        //This needs to copy the _listPegs attribute over from the 
-        //CircuitLab script, but if it copies it right at Start(), 
-        //that list will be empty. So I have to do it like this.
-        //I am sorry.
-        StartCoroutine(PegListCoroutine());
-
-        mainCamera = Camera.main;
-        // CameraZDistance = mainCamera.WorldToScreenPoint(transform.position).z;
-    }
-
-    IEnumerator PegListCoroutine()
-    {
-
-        //yield on a new YieldInstruction that waits for 1 seconds.
-        yield return new WaitForSeconds(1);
-
-        c_lab = GameObject.Find("CircuitLab").GetComponent<CircuitLab>();
-
-        //_pegs = c_lab_component._listPegs;
-        _pegsArray = c_lab._allPegs;
-    }
-
-    void OnMouseDrag(){
         // get new mouse position and add offset, then move object to new location
-        Vector3 ScreenPosition = new Vector3(Input.mousePosition.x + mouseOffset.x, Input.mousePosition.y + mouseOffset.y, ZPlane);
-        Vector3 NewWorldPosition = mainCamera.ScreenToWorldPoint(ScreenPosition);
-        transform.position = NewWorldPosition;
-
-    }
-
-    void OnMouseDown(){
-        // set z plane to be above the board on click
-        ZPlane = ZBase + ZLiftDistance;
-
-        // calculate offest of mouse from object
-        Vector3 mousePoint = Input.mousePosition;
-        mousePoint.z = ZPlane;
-        mouseOffset = mainCamera.WorldToScreenPoint(gameObject.transform.position) - mousePoint;
-        
-        if (snapped){
-            _chosenpeg.disconnect(this_component);
-
-            nextPegOver(_chosenpeg).disconnect(this_component);
-        }
-
-        snapped = false;
-    }
-
-
-    void OnMouseUp(){
-        // set z plane to be on the board on un-click
-        ZPlane = ZBase;
-
-        // get final mouse position and add offset, then move object to final location
-        Vector3 ScreenPosition = new Vector3(Input.mousePosition.x + mouseOffset.x, Input.mousePosition.y + mouseOffset.y, ZPlane);
-        Vector3 NewWorldPosition = mainCamera.ScreenToWorldPoint(ScreenPosition);
-        transform.position = NewWorldPosition;
-
-        foreach(PegSnap _peg in _pegsArray){
-
-            if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < snapDistance && !_peg.blocked){
-                _chosenpeg = _peg;
-                gameObject.transform.position = _peg.transform.position;
-                _peg.connect(this_component);
-
-                nextPegOver(_chosenpeg).connect(this_component);
-
-                snapped = true;
-            }
-        }
-
-        c_lab.constructCircuits();
+        Vector3 mousePos = new Vector3(Input.mousePosition.x + _mouseOffset.x, Input.mousePosition.y + _mouseOffset.y, _height);
+        Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousePos);
+        transform.position = worldPos;
     }
 
 }

@@ -12,8 +12,7 @@ public abstract class CircuitComponent : MonoBehaviour
     [SerializeField]
     protected List<ComponentEnd> ends;
 
-    //[SerializeField]
-    public List<CircuitComponent> touchingComponents;
+    [SerializeField] protected List<PegSnap> connectedPegs = new List<PegSnap>();
 
     const double SignificantCurrent = 0.0000001;
     const float LabelOffset = 0.022f;
@@ -22,8 +21,6 @@ public abstract class CircuitComponent : MonoBehaviour
 
     protected virtual void Start()
     {
-        touchingComponents = new List<CircuitComponent>();
-
         ends = new List<ComponentEnd>(gameObject.GetComponentsInChildren<ComponentEnd>());
         foreach (ComponentEnd addedend in ends)
         {
@@ -41,33 +38,43 @@ public abstract class CircuitComponent : MonoBehaviour
         gameObject.transform.localScale = gameObject.transform.localScale * transformAdjust;
     }
 
-
-    private void OnTriggerEnter(Collider other)
+    public void connect(List<PegSnap> pegs)
     {
-        if (other.gameObject.name.Contains("End") && !touchingComponents.Contains(other.gameObject.GetComponent<ComponentEnd>().owner))
+        foreach (PegSnap peg in pegs)
         {
-            touchingComponents.Add(other.gameObject.GetComponent<ComponentEnd>().owner);
-            other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Add(this);
+            Debug.Log("a");
+            peg.attachedComponents.Add(this);
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.name.Contains("End") && touchingComponents.Contains(other.gameObject.GetComponent<ComponentEnd>().owner))
-        {
-            touchingComponents.Remove(other.gameObject.GetComponent<ComponentEnd>().owner);
-            other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Remove(this);
-        }
-    }
-
-    {
+        connectedPegs = pegs;
 
     }
-
+    public void disconnect()
     {
+        foreach(PegSnap peg in connectedPegs)
         {
+            peg.attachedComponents.Remove(this);
+        }
+        connectedPegs.Clear();
+    }
+
+    public bool isSnapped()
+    {
+        return !(connectedPegs.Count == 0);
+    }
+
+    public List<CircuitComponent> pegConnections()
+    {
+        List<CircuitComponent> connectedComponents =  new List<CircuitComponent>();
+        foreach(PegSnap peg in connectedPegs)
+        {
+            foreach(CircuitComponent component in peg.attachedComponents)
+            {
+                if(!component.Equals(this))
+                connectedComponents.Add(component);
+            }
         }
 
+        return connectedComponents;
     }
 }
 
