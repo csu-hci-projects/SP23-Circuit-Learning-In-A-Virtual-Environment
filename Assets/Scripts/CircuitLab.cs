@@ -6,21 +6,14 @@ using UnityEngine;
 //using SpiceSharp.Simulations;
 //using UnityEngine.XR.Interaction.Toolkit;
 
-public class Circuit
-{
-    public float resistance = 0f;
-    public float current = 0f;
-
-    public List<CircuitComponent> ownComponents = new List<CircuitComponent>();
-}
 
 public class CircuitLab : MonoBehaviour
 {
     public static bool isWorldFixed;
     public GameObject screenFixed = null;
-    public int levelNumber = 1;
     public DataManager dataManager;
 
+    public GameLevel currentLevel = GameLevel.One;
 
     public Board board;
     [SerializeField] private GameObject pegTemplate = null;
@@ -29,13 +22,10 @@ public class CircuitLab : MonoBehaviour
     private CircuitComponent[] allComponents;
     private List<Circuit> allCircuits = new List<Circuit>();
 
-    //List<IDynamic> dynamicComponents = new List<IDynamic>();
-    public int numCircuits = 0;
-
-    // Start is called before the first frame update
     void Start()
     {
-        if(levelNumber ==1){
+        if(currentLevel == GameLevel.One)
+        {
             UIMainMenu.participantData.level01time = Time.time;
         }
         screenFixed.SetActive(isWorldFixed);
@@ -56,7 +46,6 @@ public class CircuitLab : MonoBehaviour
     {
         Debug.Log("ConstructCircuits");
 
-        numCircuits = 0;
         allCircuits = new List<Circuit>();
 
         List<CircuitComponent> unvisited = new List<CircuitComponent>(allComponents);
@@ -68,7 +57,6 @@ public class CircuitLab : MonoBehaviour
             unvisited.Remove(thisItem);
 
             Circuit thisCircuit = new Circuit { ownComponents = new List<CircuitComponent>() };
-            numCircuits += 1;
 
             thisCircuit.ownComponents.Add(thisItem);
 
@@ -98,4 +86,19 @@ public class CircuitLab : MonoBehaviour
 
     }
 
+    public enum GameLevel
+    {
+        One,
+        Two
+    }
+
+}
+
+
+public class Circuit
+{
+    public float resistance = 0f;
+    public float current = 0f;
+
+    public List<CircuitComponent> ownComponents = new List<CircuitComponent>();
 }
