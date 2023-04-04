@@ -75,7 +75,7 @@ public class MouseDrag : MonoBehaviour
         PegSnap otherPeg = null;
         if (_vertical)
         {
-            int newRow = --given.row;
+            int newRow = given.row - 1;
             if (newRow >= 0)
             {
                 otherPeg = _lab.board.getPeg(newRow, given.col);
@@ -83,7 +83,7 @@ public class MouseDrag : MonoBehaviour
         }
         else
         {
-            int newCol = --given.col;
+            int newCol = given.col - 1;
             if (newCol >= 0)
             {
                 otherPeg = _lab.board.getPeg(given.row, newCol);
