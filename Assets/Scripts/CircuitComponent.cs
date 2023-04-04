@@ -6,24 +6,24 @@ public enum LabelAlignment { Top, Bottom, Center };
 
 public abstract class CircuitComponent : MonoBehaviour
 {
-    [SerializeField] protected CircuitLab Lab;
+    [SerializeField] protected CircuitLab _lab;
 
-    [SerializeField] protected List<ComponentEnd> ends;
+    [SerializeField] protected List<ComponentEnd> _ends;
 
-    [SerializeField] protected List<PegSnap> connectedPegs = new List<PegSnap>();
+    [SerializeField] protected List<PegSnap> _connectedPegs = new List<PegSnap>();
 
     const double SIGNIFICANT_CURRENT = 0.0000001;
     const float LABEL_OFFSET = 0.022f;
 
     protected virtual void Start()
     {
-        ends = new List<ComponentEnd>(gameObject.GetComponentsInChildren<ComponentEnd>());
-        foreach (ComponentEnd addedend in ends)
+        _ends = new List<ComponentEnd>(gameObject.GetComponentsInChildren<ComponentEnd>());
+        foreach (ComponentEnd ends in _ends)
         {
-            addedend.owner = this;
+            ends.owner = this;
         }
 
-        Lab = (CircuitLab)FindObjectOfType(typeof(CircuitLab));
+        _lab = (CircuitLab)FindObjectOfType(typeof(CircuitLab));
     }
 
     protected abstract void Update();
@@ -40,27 +40,27 @@ public abstract class CircuitComponent : MonoBehaviour
             Debug.Log("a");
             peg.attachedComponents.Add(this);
         }
-        connectedPegs = pegs;
+        _connectedPegs = pegs;
 
     }
     public void disconnect()
     {
-        foreach(PegSnap peg in connectedPegs)
+        foreach(PegSnap peg in _connectedPegs)
         {
             peg.attachedComponents.Remove(this);
         }
-        connectedPegs.Clear();
+        _connectedPegs.Clear();
     }
 
     public bool isSnapped()
     {
-        return !(connectedPegs.Count == 0);
+        return !(_connectedPegs.Count == 0);
     }
 
     public List<CircuitComponent> pegConnections()
     {
         List<CircuitComponent> connectedComponents =  new List<CircuitComponent>();
-        foreach(PegSnap peg in connectedPegs)
+        foreach(PegSnap peg in _connectedPegs)
         {
             foreach(CircuitComponent component in peg.attachedComponents)
             {
