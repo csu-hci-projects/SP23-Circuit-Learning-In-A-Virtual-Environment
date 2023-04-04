@@ -116,11 +116,6 @@ public class CircuitLab : MonoBehaviour
 
         peg.name = name;
 
-
-
-        Point coords = new Point(row, col);
-        board.SetPegGameObject(coords, peg);
-
         PegSnap pegComponent = peg.AddComponent<PegSnap>();
 
         pegComponent.row = row;
