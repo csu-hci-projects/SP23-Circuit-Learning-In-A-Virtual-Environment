@@ -16,28 +16,17 @@ public class Circuit
 
 public class CircuitLab : MonoBehaviour
 {
-    // public members found in Unity inspector
-    public GameObject pegTemplate = null;
-    public float pegInterval;
-    public float pegHeight = 0.45f;
-    public Vector3 pegScale;
     public static bool isWorldFixed;
     public GameObject screenFixed = null;
     public int levelNumber = 1;
     public DataManager dataManager;
-    Board board;
-    int numRows;
-    int numCols;
-
-    public int numSquare;
-    public float scaleAdjust = 1f;
 
 
-    public PegSnap[,] _allPegs;
-    public List<PegSnap> _listPegs;
+    public Board board;
+    [SerializeField] private GameObject pegTemplate = null;
+    [SerializeField] private int size = 9;
 
-    public CircuitComponent[] allComponents;
-
+    private CircuitComponent[] allComponents;
     private List<Circuit> allCircuits = new List<Circuit>();
 
     //List<IDynamic> dynamicComponents = new List<IDynamic>();
@@ -50,78 +39,17 @@ public class CircuitLab : MonoBehaviour
             UIMainMenu.participantData.level01time = Time.time;
         }
         screenFixed.SetActive(isWorldFixed);
-        numRows = numCols = numSquare;
-
-        pegInterval = 1.0f / (float)(numSquare + 1);
-        scaleAdjust = 9.0f / (float)numSquare;
-
-        _allPegs = new PegSnap[numSquare, numSquare];
-        _listPegs = new List<PegSnap>();
 
         allComponents = FindObjectsOfType<CircuitComponent>();
 
-        board = new Board(numSquare, numSquare);
-        CreatePegs();
+        board = new Board(size, pegTemplate);
 
         foreach (CircuitComponent V in allComponents)
         {
-            V.setScale();
+            V.setScale(board.scaleAdjust);
         }
 
        dataManager.Save();
-    }
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void CreatePegs() {
-
-        // Creates a matrix of pegs
-        for (int i = 0; i < numRows; i++)
-        {
-            for (int j = 0; j < numCols; j++) {
-                _allPegs[i, j] = CreatePeg(i, j);
-                _listPegs.Add(_allPegs[i, j]);
-            }
-        }
-    }
-
-    private PegSnap CreatePeg(int row, int col) {
-
-        // create peg name
-        string name = "Peg_" + row.ToString() + "_" + col.ToString();
-
-        // find bounds of breadboard
-        var boardObject = GameObject.Find("Breadboard").gameObject;
-        var mesh = boardObject.GetComponent<MeshFilter>().mesh;
-        var size = mesh.bounds.size;
-        var boardWidth = size.x * boardObject.transform.localScale.x;
-        var boardHeight = size.z * boardObject.transform.localScale.z;
-        var boardXPos = boardObject.transform.position.x;
-        var boardZPos = boardObject.transform.position.z;
-
-        // Create a new peg
-        var position = new Vector3(-(boardWidth / 2.0f) + ((col + 1) * pegInterval) + (boardWidth / 2) - 0.5f, pegHeight, -(boardHeight / 2.0f) + ((row + 1) * pegInterval) + (boardHeight / 2) - 0.5f);
-        var rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        var peg = Instantiate(pegTemplate, position, rotation) as GameObject;
-        peg.transform.parent = boardObject.transform;
-        peg.transform.localPosition = position;
-        peg.transform.localRotation = rotation;
-        peg.transform.localScale = pegScale * scaleAdjust;
-
-        peg.name = name;
-
-        PegSnap pegComponent = peg.AddComponent<PegSnap>();
-
-        pegComponent.row = row;
-        pegComponent.col = col;
-
-        return pegComponent;
     }
 
     public void constructCircuits()

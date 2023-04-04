@@ -7,7 +7,6 @@ using UnityEngine;
 public class MouseDrag : MonoBehaviour
 {
     [SerializeField] private CircuitLab _lab;
-    private PegSnap[,] _pegsArray;
     [SerializeField] private CircuitComponent _thisComponent;
     [SerializeField] private bool _vertical;
 
@@ -21,17 +20,7 @@ public class MouseDrag : MonoBehaviour
 
     void Start()
     {
-        IEnumerator PegListCoroutine()
-        {
-            //yield on a new YieldInstruction that waits for 1 seconds.
-            yield return new WaitForSeconds(1);
-
-            _lab = GameObject.Find("CircuitLab").GetComponent<CircuitLab>();
-
-            //_pegs = c_lab_component._listPegs;
-            _pegsArray = _lab._allPegs;
-        }
-        StartCoroutine(PegListCoroutine());
+        _lab = (CircuitLab)FindObjectOfType(typeof(CircuitLab));
         mainCamera = Camera.main;
         // CameraZDistance = mainCamera.WorldToScreenPoint(transform.position).z;
     }
@@ -62,9 +51,7 @@ public class MouseDrag : MonoBehaviour
         _height = DEFAULT_HEIGHT;
         moveToMouse();
 
-        Debug.Log(_lab._allPegs.ToString());
-        Debug.Log(_pegsArray.ToString());
-        foreach(PegSnap peg in _pegsArray)
+        foreach(PegSnap peg in _lab.board.getAllPegs())
         {
             if(Vector3.Distance(gameObject.transform.position, peg.transform.position) < SNAP_DISTANCE && !peg.blocked){
                 gameObject.transform.position = peg.transform.position;
@@ -85,7 +72,7 @@ public class MouseDrag : MonoBehaviour
             int newRow = --given.row;
             if (newRow >= 0)
             {
-                otherPeg = _lab._allPegs[newRow, given.col];
+                otherPeg = _lab.board.getPeg(newRow, given.col);
             }
         }
         else
@@ -93,7 +80,7 @@ public class MouseDrag : MonoBehaviour
             int newCol = --given.col;
             if (newCol >= 0)
             {
-                otherPeg = _lab._allPegs[given.row, newCol];
+                otherPeg = _lab.board.getPeg(given.row, newCol);
             }
         }
 

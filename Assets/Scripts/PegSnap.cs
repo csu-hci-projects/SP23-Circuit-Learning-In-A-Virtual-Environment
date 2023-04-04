@@ -9,4 +9,10 @@ public class PegSnap : MonoBehaviour
 
     public List<CircuitComponent> attachedComponents = new List<CircuitComponent>();
     public bool blocked = false;
+
+    public void init(int row, int col)
+    {
+        this.row = row;
+        this.col = col;
+    }
 }

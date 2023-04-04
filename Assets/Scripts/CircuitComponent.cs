@@ -15,8 +15,6 @@ public abstract class CircuitComponent : MonoBehaviour
     const double SIGNIFICANT_CURRENT = 0.0000001;
     const float LABEL_OFFSET = 0.022f;
 
-    public float transformAdjust = 1f;
-
     protected virtual void Start()
     {
         ends = new List<ComponentEnd>(gameObject.GetComponentsInChildren<ComponentEnd>());
@@ -30,10 +28,9 @@ public abstract class CircuitComponent : MonoBehaviour
 
     protected abstract void Update();
 
-    public void setScale()
+    public void setScale(float scaleAdjust)
     {
-        transformAdjust = (float)(Lab.scaleAdjust);
-        gameObject.transform.localScale = gameObject.transform.localScale * transformAdjust;
+        gameObject.transform.localScale = gameObject.transform.localScale * scaleAdjust;
     }
 
     public void connect(List<PegSnap> pegs)
