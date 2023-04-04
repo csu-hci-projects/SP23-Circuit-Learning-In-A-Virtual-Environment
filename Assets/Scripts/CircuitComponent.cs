@@ -15,6 +15,11 @@ public abstract class CircuitComponent : MonoBehaviour
     const double SIGNIFICANT_CURRENT = 0.0000001;
     const float LABEL_OFFSET = 0.022f;
 
+    public float resistance = 0.01f;
+
+    public int circuitIndex;
+    public Circuit ownCircuit;
+
     protected virtual void Start()
     {
         _ends = new List<ComponentEnd>(gameObject.GetComponentsInChildren<ComponentEnd>());
@@ -37,17 +42,20 @@ public abstract class CircuitComponent : MonoBehaviour
     {
         foreach (PegSnap peg in pegs)
         {
-            Debug.Log("a");
             peg.attachedComponents.Add(this);
+            if (peg.attachedComponents.Count >= 2)
+            {
+                peg.blocked = true;
+            }
         }
         _connectedPegs = pegs;
-
     }
     public void disconnect()
     {
         foreach(PegSnap peg in _connectedPegs)
         {
             peg.attachedComponents.Remove(this);
+            peg.blocked = false;
         }
         _connectedPegs.Clear();
     }
@@ -68,7 +76,6 @@ public abstract class CircuitComponent : MonoBehaviour
                 connectedComponents.Add(component);
             }
         }
-
         return connectedComponents;
     }
 }

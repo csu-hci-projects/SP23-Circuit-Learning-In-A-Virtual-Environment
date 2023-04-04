@@ -425,8 +425,13 @@ MonoBehaviour:
   ends:
   - {fileID: 4912509423046775074}
   - {fileID: 8176676389941120919}
+  touchingComponents: []
+  startPeg: {fileID: 0}
+  endPeg: {fileID: 0}
+  resistance: 0.05
   connectedPegs: []
   transformAdjust: 1
+  circuitIndex: 0
 --- !u!136 &5445385167568683348
 CapsuleCollider:
   m_ObjectHideFlags: 0
