@@ -119,7 +119,7 @@ public class MouseDrag : MonoBehaviour
 
             if(Vector3.Distance(gameObject.transform.position, _peg.transform.position) < snapDistance){
 
-                if (_peg.blocked)
+                if (_peg.blocked || nextPegOver(_peg).blocked)
                 {
                     Debug.Log("Can't connect to blocked peg");
                     break;
