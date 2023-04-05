@@ -839,6 +839,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9047485955768759428, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
+      propertyPath: _vertical
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9047485955768759428, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
       propertyPath: this_wire
       value: 
       objectReference: {fileID: 0}
@@ -888,40 +892,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 269a06fbde3704b44bd9363dd4c2e3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lab: {fileID: 0}
-  ends:
-  - {fileID: 7018791673648735651}
-  - {fileID: 6066946038663002902}
-  touchingComponents: []
-  startPeg: {fileID: 0}
-  endPeg: {fileID: 0}
+  _lab: {fileID: 0}
+  _ends: []
+  _connectedPegs: []
   resistance: 5
-  connectedPegs: []
-  transformAdjust: 1
   circuitIndex: 0
   bulbLight: {fileID: 7807609012989393914}
   unlit: {fileID: 2100000, guid: f003642f41a98d644b9610ee657e8480, type: 2}
   lit: {fileID: 2100000, guid: 8f5aa7d81b4786b42a021e01c01479ab, type: 2}
   filament: {fileID: 7864826705635846673}
---- !u!114 &6066946038663002902 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8176676389941120919, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
-  m_PrefabInstance: {fileID: 2687378620170318977}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b895eaebd056142837b499dd1b8990, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7018791673648735651 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4912509423046775074, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
-  m_PrefabInstance: {fileID: 2687378620170318977}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b895eaebd056142837b499dd1b8990, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
