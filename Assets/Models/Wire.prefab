@@ -429,6 +429,7 @@ MonoBehaviour:
   startPeg: {fileID: 0}
   endPeg: {fileID: 0}
   resistance: 0.05
+  connectedPegs: []
   transformAdjust: 1
   circuitIndex: 0
 --- !u!136 &5445385167568683348
@@ -470,8 +471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5c206a45cc0496e92327ac88598e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  c_lab: {fileID: 0}
-  this_component: {fileID: 5473590982317545488}
-  vertical: 0
-  snapped: 0
-  _chosenpeg: {fileID: 0}
+  _lab: {fileID: 0}
+  _thisComponent: {fileID: 5473590982317545488}
+  _vertical: 0

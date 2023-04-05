@@ -6,174 +6,78 @@ public enum LabelAlignment { Top, Bottom, Center };
 
 public abstract class CircuitComponent : MonoBehaviour
 {
-    [SerializeField]
-    protected CircuitLab Lab;
+    [SerializeField] protected CircuitLab _lab;
 
-    [SerializeField]
-    protected List<ComponentEnd> ends;
+    [SerializeField] protected List<ComponentEnd> _ends;
 
-    //[SerializeField]
-    public List<CircuitComponent> touchingComponents;
+    [SerializeField] protected List<PegSnap> _connectedPegs = new List<PegSnap>();
 
-    protected Point StartingPeg { get; set; }
-
-    public bool IsPlaced { get; protected set; }
-    public bool IsHeld { get; protected set; }
-
-    public PegSnap startPeg;
-    public PegSnap endPeg;
+    const double SIGNIFICANT_CURRENT = 0.0000001;
+    const float LABEL_OFFSET = 0.022f;
 
     public float resistance = 0.01f;
-
-    protected Direction Direction { get; set; }
-    protected bool IsActive { get; set; }
-    protected bool IsForward { get; set; }
-
-    const double SignificantCurrent = 0.0000001;
-    const float LabelOffset = 0.022f;
-
-    public float transformAdjust = 1f;
 
     public int circuitIndex;
     public Circuit ownCircuit;
 
-    protected CircuitComponent()
-    {
-        IsPlaced = false;
-        IsHeld = false;
-        IsActive = false;
-        IsForward = true;
-    }
-
     protected virtual void Start()
     {
-        touchingComponents = new List<CircuitComponent>();
-
-        ends = new List<ComponentEnd>(gameObject.GetComponentsInChildren<ComponentEnd>());
-        foreach (ComponentEnd addedend in ends)
+        _ends = new List<ComponentEnd>(gameObject.GetComponentsInChildren<ComponentEnd>());
+        foreach (ComponentEnd ends in _ends)
         {
-            addedend.owner = this;
+            ends.owner = this;
         }
 
-        Lab = (CircuitLab)FindObjectOfType(typeof(CircuitLab));
+        _lab = (CircuitLab)FindObjectOfType(typeof(CircuitLab));
     }
 
     protected abstract void Update();
 
-    public void setScale()
+    public void setScale(float scaleAdjust)
     {
-        transformAdjust = (float)(Lab.scaleAdjust);
-        gameObject.transform.localScale = gameObject.transform.localScale * transformAdjust;
+        gameObject.transform.localScale = gameObject.transform.localScale * scaleAdjust;
     }
 
-    /*
-    private void OnTriggerEnter(Collider other)
+    public void connect(List<PegSnap> pegs)
     {
-        if (other.gameObject.name.Contains("End") && !touchingComponents.Contains(other.gameObject.GetComponent<ComponentEnd>().owner))
+        foreach (PegSnap peg in pegs)
         {
-            touchingComponents.Add(other.gameObject.GetComponent<ComponentEnd>().owner);
-            other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Add(this);
+            peg.attachedComponents.Add(this);
+            if (peg.attachedComponents.Count >= 2)
+            {
+                peg.blocked = true;
+            }
         }
-    }*/
-
-    private void OnTriggerExit(Collider other)
+        _connectedPegs = pegs;
+    }
+    public void disconnect()
     {
-        if (other.gameObject.name.Contains("End") && touchingComponents.Contains(other.gameObject.GetComponent<ComponentEnd>().owner))
+        foreach(PegSnap peg in _connectedPegs)
         {
-            touchingComponents.Remove(other.gameObject.GetComponent<ComponentEnd>().owner);
-            other.gameObject.GetComponent<ComponentEnd>().owner.touchingComponents.Remove(this);
+            peg.attachedComponents.Remove(this);
+            peg.blocked = false;
         }
+        _connectedPegs.Clear();
     }
 
-public virtual void SetActive(bool isActive, bool isForward)
+    public bool isSnapped()
     {
-        IsActive = isActive;
-        IsForward = isForward;
+        return !(_connectedPegs.Count == 0);
     }
 
-    // Reset any component-specific state that might need resetting
-    protected virtual void Reset()
+    public List<CircuitComponent> pegConnections()
     {
-    }
-
-
-    /*public virtual void SelectEntered()
-    {
-        IsHeld = true;
-
-        // Enable box and sphere colliders so this piece can be placed somewhere else on the board.
-        GetComponent<BoxCollider>().enabled = true;
-        GetComponent<SphereCollider>().enabled = true;
-
-        if (IsPlaced)
+        List<CircuitComponent> connectedComponents =  new List<CircuitComponent>();
+        foreach(PegSnap peg in _connectedPegs)
         {
-            Lab.RemoveComponent(this.gameObject, StartingPeg);
-
-            IsPlaced = false;
+            foreach(CircuitComponent component in peg.attachedComponents)
+            {
+                if(!component.Equals(this))
+                connectedComponents.Add(component);
+            }
         }
-
-        // Reinitialize component state
-        Reset();
-    }
-
-    public virtual void SelectExited()
-    {
-        IsHeld = false;
-
-        // Make sure gravity is enabled any time we release the object
-        GetComponent<Rigidbody>().isKinematic = false;
-        GetComponent<Rigidbody>().useGravity = true;
-    }*/
-
-    /*
-    protected IEnumerator PlaySound(AudioSource source, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        source.Stop();
-        source.Play();
-    }
-    */
-
-
-    protected void RotateLabel(GameObject label, LabelAlignment alignment)
-    {
-        var rotation = label.transform.localEulerAngles;
-        var position = label.transform.localPosition;
-
-        switch (Direction)
-        {
-            case Direction.North:
-            case Direction.East:
-                rotation.z = -90f;
-                position.x = alignment switch
-                {
-                    LabelAlignment.Top => -LabelOffset,
-                    LabelAlignment.Bottom => LabelOffset,
-                    _ => 0
-                };
-                break;
-            case Direction.South:
-            case Direction.West:
-                rotation.z = 90f;
-                position.x = alignment switch
-                {
-                    LabelAlignment.Top => LabelOffset,
-                    LabelAlignment.Bottom => -LabelOffset,
-                    _ => 0
-                }; break;
-            default:
-                Debug.Log("Unrecognized direction!");
-                break;
-        }
-
-        // Apply label positioning
-        label.transform.localEulerAngles = rotation;
-        label.transform.localPosition = position;
+        return connectedComponents;
     }
 }
-
-
-public enum Direction { North, South, East, West };
 
 

@@ -1318,6 +1318,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9047485955768759428, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
+      propertyPath: _thisComponent
+      value: 
+      objectReference: {fileID: 7443295697569380376}
+    - target: {fileID: 9047485955768759428, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
       propertyPath: this_component
       value: 
       objectReference: {fileID: 7443295697569380376}
@@ -1368,6 +1372,7 @@ MonoBehaviour:
   startPeg: {fileID: 0}
   endPeg: {fileID: 0}
   resistance: 0.05
+  connectedPegs: []
   transformAdjust: 1
   circuitIndex: 0
   voltage: 5

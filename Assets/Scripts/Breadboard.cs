@@ -1,113 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public struct Point {
-    public int x;
-    public int y;
 
-    public Point(int xVal, int yVal){
-        x = xVal;
-        y = yVal;
-    }
+public class Board
+{
+    private GameObject pegTemplate;
+    [SerializeField] private float pegInterval;
+    [SerializeField] private float pegHeight = 0.45f;
+    [SerializeField] Vector3 pegScale = new Vector3(.02f, .2f, .02f);
+    public float scaleAdjust { get; set; }
 
-    public override string ToString()
+    private PegSnap[,] pegs;
+
+    public Board(int size, GameObject pegTemplate)
     {
-        return "(" + x + "," + y + ")";
+        this.pegTemplate = pegTemplate;
+        pegInterval = 1.0f / (size + 1);
+        scaleAdjust = 9.0f / size;
+        pegs = new PegSnap[size, size];
+
+        CreatePegs();
     }
-}
-public class PlacedComponent{
-    public GameObject GameObject { get; set; }
-   // public CircuitComponent Component { get; set; }
-    public Point Start { get; set; }
-    public Point End { get; set; }
-}
-
-public class Peg{
-    public GameObject GameObject { get; set; }
-    public List<PlacedComponent> Components { get; set; }
-    public bool IsBlocked { get; set; }
-
-    public Peg(){
-        Components = new List<PlacedComponent>();
-        IsBlocked = false;
-    }
-}
-
-public class Board {
-    public List<PlacedComponent> Components { get; set; }
-    private Peg[,] Pegs { get; set; }
-    private int Rows { get; set; }
-    private int Cols { get; set; }
-    public int Generation { get; set; }
-
-    public Board(int rows, int cols)
+    public void CreatePegs()
     {
-        Components = new List<PlacedComponent>();
-        Generation = 0;
 
-        Rows = rows;
-        Cols = cols;
-
-        Pegs = new Peg[rows, cols];
-        for (int i = 0; i < rows; i++)
+        // Creates a matrix of pegs
+        for (int i = 0; i < pegs.GetLength(0); i++)
         {
-            for (int j = 0; j < cols; j++)
+            for (int j = 0; j < pegs.GetLength(1); j++)
             {
-                Pegs[i, j] = new Peg();
+                pegs[i, j] = CreatePeg(i, j);
             }
         }
     }
-
-    public void Reset()
+    private PegSnap CreatePeg(int row, int col)
     {
-        for (int i = 0; i < Rows; i++)
-        {
-            for (int j = 0; j < Cols; j++)
-            {
-                Pegs[i, j].GameObject.SetActive(true);
-                Pegs[i, j].IsBlocked = false;
-                Pegs[i, j].Components.Clear();
-            }
-        }
+        // find bounds of breadboard
+        GameObject boardObject = GameObject.Find("Breadboard").gameObject;
+        Mesh mesh = boardObject.GetComponent<MeshFilter>().mesh;
+        Vector3 size = mesh.bounds.size;
+        float boardWidth = size.x * boardObject.transform.localScale.x;
+        float boardHeight = size.z * boardObject.transform.localScale.z;
 
-        Components.Clear();
+        // Create a new peg
+        Vector3 pegPosition = new Vector3(-(boardWidth / 2.0f) + ((col + 1) * pegInterval) + (boardWidth / 2) - 0.5f, pegHeight, -(boardHeight / 2.0f) + ((row + 1) * pegInterval) + (boardHeight / 2) - 0.5f);
+        Quaternion pegOrientation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+        GameObject peg = GameObject.Instantiate(pegTemplate, pegPosition, pegOrientation) as GameObject;
+        string name = "Peg_" + row.ToString() + "_" + col.ToString();
+        peg.name = name;
+        peg.transform.parent = boardObject.transform;
+        peg.transform.localPosition = pegPosition;
+        peg.transform.localRotation = pegOrientation;
+        peg.transform.localScale = pegScale * scaleAdjust;
+
+        PegSnap pegComponent = peg.AddComponent<PegSnap>();
+        pegComponent.init(row, col);
+
+        return pegComponent;
     }
 
-    public void AddComponent(PlacedComponent component)
+    public PegSnap getPeg(int row, int col)
     {
-        // Add it to our master list of components
-        Components.Add(component);
-
-        // Link the new component to both the starting and ending pegs
-        Pegs[component.Start.y, component.Start.x].Components.Add(component);
-        Pegs[component.End.y, component.End.x].Components.Add(component);
+        return pegs[row, col];
     }
 
-    public Peg GetPeg(Point coords)
+    public PegSnap[,] getAllPegs()
     {
-        if (coords.x < 0 || coords.x >= Cols || coords.y < 0 || coords.y >= Rows)
-        {
-            return null;
-        }
-        return Pegs[coords.y, coords.x];
-    }
-
-    public void SetPegGameObject(Point coords, GameObject gameObject)
-    {
-        if (coords.x < 0 || coords.x >= Cols || coords.y < 0 || coords.y >= Rows)
-        {
-            return;
-        }
-        Pegs[coords.y, coords.x].GameObject = gameObject;
-    }
-
-    public void BlockPeg(Point coords, bool block)
-    {
-        Peg peg = GetPeg(coords);
-        if (peg != null)
-        {
-            peg.GameObject.SetActive(!block);
-            peg.IsBlocked = block;
-        }
+        return pegs;
     }
 }

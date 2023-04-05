@@ -17,7 +17,7 @@ public class Bulb : CircuitComponent
             bulbLight.intensity = (circuit voltage/circuit resistance) * some scaling coefficient;
         */
 
-        if (touchingComponents.Count == 2 && ownCircuit.current > 0.01)
+        if (pegConnections().Count == 2 && ownCircuit.current > 0.01)
         {
             if (bulbLight.enabled == false)
             {
@@ -39,8 +39,7 @@ public class Bulb : CircuitComponent
 
         /*
         //If the Bulb is on the pegboard, and both ends are connected, turn the light on
-        if((startPeg != null && endPeg != null) && 
-            (startPeg.attachedComponents.Count == 2 && endPeg.attachedComponents.Count == 2)){
+        if(pegConnections().Count >= 2){
             bulbLight.intensity = 1;
             bulbLight.enabled = true; 
         } else {
