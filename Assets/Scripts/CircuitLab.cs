@@ -39,12 +39,15 @@ public class CircuitLab : MonoBehaviour
     private CircuitComponent[] allComponents;
     private List<Circuit> allCircuits = new List<Circuit>();
 
+
+    public bool maxCurrent;
+    public List<System.Type> requirements;
+    public float goalcurrent;
+
     void Start()
     {
-        if(currentLevel == GameLevel.One)
-        {
-            UIMainMenu.participantData.level01time = Time.time;
-        }
+        setLevel(currentLevel);
+
         screenFixed.SetActive(isWorldFixed);
 
         allComponents = FindObjectsOfType<CircuitComponent>();
@@ -57,6 +60,56 @@ public class CircuitLab : MonoBehaviour
         }
 
        dataManager.Save();
+    }
+
+    public void setLevel(GameLevel level)
+    {
+        switch (level)
+        {
+            case GameLevel.One:
+                UIMainMenu.participantData.level01time = Time.time;
+
+                requirements = new List<System.Type>() { typeof(Wire), typeof(Wire), typeof(Wire), typeof(Wire) };
+                maxCurrent = false;
+                goalcurrent = 0.0f;
+                break;
+
+        }
+    }
+
+    public bool checkRequirements()
+    {
+
+        Debug.Log("Check requirements");
+
+        foreach (Circuit C in allCircuits)
+        {
+            if (maxCurrent)
+            {
+                if (C.current > goalcurrent) continue;
+            }
+            else if (C.current < goalcurrent) continue;
+
+            List<CircuitComponent> copylist = new List<CircuitComponent>(C.ownComponents);
+
+            foreach (System.Type T in requirements)
+            {
+                bool found = false;
+                foreach (CircuitComponent singleComponent in C.ownComponents)
+                {
+                    if (singleComponent.GetType() == T)
+                    {
+                        Debug.Log("Found component type");
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) continue;
+                else return false;
+            }
+        }
+
+        return true;
     }
 
     public void constructCircuits()

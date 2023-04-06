@@ -23,10 +23,24 @@ public class ScenesManager : MonoBehaviour
     public void LoadNewGame(bool worldFixedActive){ 
         SceneManager.LoadScene(Scene.Level01.ToString());
         CircuitLab.isWorldFixed = worldFixedActive;
+
     }
 
     public void LoadNextScene(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+
+        CircuitLab lab = FindObjectOfType<CircuitLab>();
+
+        if (lab.checkRequirements())
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            Debug.Log("Circuit not complete");
+        }
+
+
     }
 
     public void LoadMainMenu(){
