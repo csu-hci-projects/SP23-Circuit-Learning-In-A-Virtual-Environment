@@ -29,6 +29,8 @@ public class CircuitLab : MonoBehaviour
     int numRows;
     int numCols;
 
+
+
     public int numSquare;
     public float scaleAdjust = 1f;
 
@@ -43,12 +45,67 @@ public class CircuitLab : MonoBehaviour
     //List<IDynamic> dynamicComponents = new List<IDynamic>();
     public int numCircuits = 0;
 
+    public bool maxCurrent;
+    public List<System.Type> requirements;
+    public float goalcurrent;
+
+    public void setLevel(int level)
+    {
+        switch(level)
+        {
+            case 1:
+                UIMainMenu.participantData.level01time = Time.time;
+
+                requirements = new List<System.Type>() { typeof(Wire), typeof(Wire), typeof(Wire), typeof(Wire) };
+                maxCurrent = false;
+                goalcurrent = 0.0f;
+                break;
+
+        }
+    }
+
+    public bool checkRequirements()
+    {
+
+        Debug.Log("Check requirements");
+
+        foreach (Circuit C in allCircuits)
+        {
+            if (maxCurrent)
+            {
+                if (C.current > goalcurrent) continue;
+            }
+            else if (C.current < goalcurrent) continue;
+
+            List<CircuitComponent> copylist = new List<CircuitComponent>(C.ownComponents);
+
+            foreach (System.Type T in requirements)
+            {
+                bool found = false;
+                foreach ( CircuitComponent singleComponent in C.ownComponents)
+                {
+                    if (singleComponent.GetType() == T)
+                    {
+                        Debug.Log("Found component type");
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) continue;
+                else return false;
+            }
+        }
+
+        return true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        if(levelNumber ==1){
-            UIMainMenu.participantData.level01time = Time.time;
-        }
+
+        setLevel(levelNumber);
+
+
         screenFixed.SetActive(isWorldFixed);
         numRows = numCols = numSquare;
 

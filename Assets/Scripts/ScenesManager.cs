@@ -26,7 +26,16 @@ public class ScenesManager : MonoBehaviour
     }
 
     public void LoadNextScene(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+        CircuitLab lab = FindObjectOfType<CircuitLab>();
+
+        if (lab.checkRequirements()) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            Debug.Log("Circuit not complete");
+        }
+       
     }
 
     public void LoadMainMenu(){
