@@ -73,7 +73,12 @@ public class CircuitLab : MonoBehaviour
                 maxCurrent = false;
                 goalcurrent = 0.0f;
                 break;
-
+            case GameLevel.Two:
+                UIMainMenu.participantData.level02time = Time.time;
+                requirements = new List<System.Type>() { typeof(Battery), typeof(Bulb)};
+                maxCurrent = false;
+                goalcurrent = 0.5f;
+                break;
         }
     }
 

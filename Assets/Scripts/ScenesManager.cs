@@ -1,11 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ScenesManager : MonoBehaviour
 {
     public static ScenesManager Instance;
+
+
+    [SerializeField] private Button MyButton = null; // assign in the editor
+
+    void Start()
+    {
+        MyButton.onClick.AddListener(() => { LoadNextScene(); });
+    }
+
 
     private void Awake() {
         Instance = this;
@@ -27,6 +37,7 @@ public class ScenesManager : MonoBehaviour
     }
 
     public void LoadNextScene(){
+        Debug.Log("Load next scene");
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
 
         CircuitLab lab = FindObjectOfType<CircuitLab>();
