@@ -69,7 +69,7 @@ public class CircuitLab : MonoBehaviour
             case GameLevel.One:
                 UIMainMenu.participantData.level01time = Time.time;
 
-                requirements = new List<System.Type>() { typeof(Wire), typeof(Wire), typeof(Wire), typeof(Wire) };
+                requirements = new List<System.Type>() { typeof(Battery), typeof(Wire), typeof(Wire), typeof(Wire) };
                 maxCurrent = false;
                 goalcurrent = 0.0f;
                 break;
@@ -85,18 +85,36 @@ public class CircuitLab : MonoBehaviour
     public bool checkRequirements()
     {
 
-        Debug.Log("Check requirements");
+        Debug.Log("Check requirements on " + allCircuits.Count + " circuits");
 
         foreach (Circuit C in allCircuits)
         {
+
+            Debug.Log("Checking circuit " + C.index);
+
             if (maxCurrent)
             {
-                if (C.current > goalcurrent) continue;
+                if (C.current > goalcurrent)
+                {
+                    Debug.Log(C.index + ": Max current exceeded");
+                    continue; //Continue to the next circuit
+                }
             }
-            else if (C.current < goalcurrent) continue;
+            else if (C.current < goalcurrent)
+            {
+                Debug.Log(C.index + ": Min current not met");
+                continue; //Continue to the next circuit
+            }
+
+            if (!circuitIsLoop(C))
+            {
+                Debug.Log("Circuit is not a loop.");
+                continue; //continue to the next circuit
+            }
 
             List<CircuitComponent> copylist = new List<CircuitComponent>(C.ownComponents);
 
+            bool allcomponentsfound = true;
             foreach (System.Type T in requirements)
             {
                 bool found = false;
@@ -104,17 +122,27 @@ public class CircuitLab : MonoBehaviour
                 {
                     if (singleComponent.GetType() == T)
                     {
-                        Debug.Log("Found component type");
+                        Debug.Log(C.index + ": Found component type: " + T.Name);
                         found = true;
-                        break;
+                       
+                        break; //Stop checking for this one requirement - break out of the components foreach loop
                     }
                 }
-                if (found) continue;
-                else return false;
+                if (found) continue; //continue to next component requirement
+                else
+                {
+                    Debug.Log(C.index + ": Did not find necessary component: " + T.Name);
+                    allcomponentsfound = false;
+                    break;
+                    //No, it shouldn't return false, it should go on to check the next circuit.
+                }
             }
+            if (allcomponentsfound) { return true; }
+            else continue;
         }
+        //Done checking all circuits
 
-        return true;
+        return false;
     }
 
     public void constructCircuits()
@@ -168,6 +196,8 @@ public class CircuitLab : MonoBehaviour
             }
         }
 
+        Debug.Log("Constructed " + allCircuits.Count + " circuits");
+
     }
 
     private bool circuitIsLoop(Circuit testCircuit)
@@ -189,7 +219,7 @@ public class CircuitLab : MonoBehaviour
         }
 
         visited.Add(thisItem);
-        List<CircuitComponent> connectedComponents = thisItem.pegConnections();
+        List<CircuitComponent> connectedComponents = thisItem.connectedViaPegs();
         if (connectedComponents.Count != 2)
         {
             return false;
@@ -215,7 +245,7 @@ public class CircuitLab : MonoBehaviour
         //Recursively accesses all of the unvisited adjacent components to thisItem, adding them to the circuit and removing
         //them from unvisited
         
-        foreach (CircuitComponent V in thisItem.pegConnections())
+        foreach (CircuitComponent V in thisItem.connectedViaPegs())
         {
             if (unvisited.Contains(V))
             {
