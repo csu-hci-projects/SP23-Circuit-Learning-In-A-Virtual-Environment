@@ -7,13 +7,14 @@ using UnityEngine.SceneManagement;
 public class ScenesManager : MonoBehaviour
 {
     public static ScenesManager Instance;
-
+    public GameObject completeCanvas;
+    public GameObject notCompleteCanvas;
 
     [SerializeField] private Button MyButton = null; // assign in the editor
 
     void Start()
     {
-        MyButton.onClick.AddListener(() => { LoadNextScene(); });
+        MyButton.onClick.AddListener(() => { IsComplete(); });
     }
 
 
@@ -38,28 +39,47 @@ public class ScenesManager : MonoBehaviour
     }
 
     public void LoadNextScene(){
-        Debug.Log("Load next scene");
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+        //Debug.Log("Load next scene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
 
-        if (SceneManager.GetActiveScene().buildIndex != 0)
-        {
-            CircuitLab lab = FindObjectOfType<CircuitLab>();
+        // if (SceneManager.GetActiveScene().buildIndex != 0)
+        // {
+        //     CircuitLab lab = FindObjectOfType<CircuitLab>();
 
-            if (lab.checkRequirements())
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
-            else
-            {
-                Debug.Log("Circuit not complete");
-            }
-        }
+        //     // if (lab.checkRequirements())
+        //     // {
+        //     //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //     // }
+        //     // else
+        //     // {
+        //     //     Debug.Log("Circuit not complete");
+        //     // }
+        // }
 
 
     }
 
     public void LoadMainMenu(){
         SceneManager.LoadScene(Scene.MainMenu.ToString());
+    }
+
+    public void IsComplete(){
+        CircuitLab lab = FindObjectOfType<CircuitLab>();
+
+            if (lab.checkRequirements())
+            {
+                
+                completeCanvas.SetActive(true);
+            }
+            else
+            {
+                notCompleteCanvas.SetActive(true);
+            }
+        
+    }
+
+    public void hideCanvas(){
+        notCompleteCanvas.SetActive(false);
     }
 }
 
