@@ -28,6 +28,7 @@ public class ScenesManager : MonoBehaviour
 
     public void LoadScene(Scene scene){
         SceneManager.LoadScene(scene.ToString());
+        
     }
 
     public void LoadNewGame(bool worldFixedActive){ 
@@ -40,15 +41,18 @@ public class ScenesManager : MonoBehaviour
         Debug.Log("Load next scene");
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
 
-        CircuitLab lab = FindObjectOfType<CircuitLab>();
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            CircuitLab lab = FindObjectOfType<CircuitLab>();
 
-        if (lab.checkRequirements())
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-        else
-        {
-            Debug.Log("Circuit not complete");
+            if (lab.checkRequirements())
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else
+            {
+                Debug.Log("Circuit not complete");
+            }
         }
 
 

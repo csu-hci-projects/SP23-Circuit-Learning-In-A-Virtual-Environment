@@ -79,6 +79,12 @@ public class CircuitLab : MonoBehaviour
                 maxCurrent = false;
                 goalcurrent = 0.5f;
                 break;
+            case GameLevel.Three:
+                UIMainMenu.participantData.level03time = Time.time;
+                requirements = new List<System.Type>() { typeof(Battery), typeof(Bulb), typeof(Bulb) };
+                maxCurrent = false;
+                goalcurrent = 0.0f;
+                break;
         }
     }
 
@@ -112,23 +118,31 @@ public class CircuitLab : MonoBehaviour
                 continue; //continue to the next circuit
             }
 
-            List<CircuitComponent> copylist = new List<CircuitComponent>(C.ownComponents);
+            List<System.Type> componentTypes = new List<System.Type>();
+
+            foreach (CircuitComponent copyType in C.ownComponents)
+            {
+                componentTypes.Add(copyType.GetType());
+            }
 
             bool allcomponentsfound = true;
             foreach (System.Type T in requirements)
             {
                 bool found = false;
-                foreach (CircuitComponent singleComponent in C.ownComponents)
+                foreach (System.Type singleType in componentTypes)
                 {
-                    if (singleComponent.GetType() == T)
+                    if (singleType == T)
                     {
                         Debug.Log(C.index + ": Found component type: " + T.Name);
                         found = true;
+                        componentTypes.Remove(T);
                        
                         break; //Stop checking for this one requirement - break out of the components foreach loop
                     }
                 }
+
                 if (found) continue; //continue to next component requirement
+                
                 else
                 {
                     Debug.Log(C.index + ": Did not find necessary component: " + T.Name);
@@ -273,6 +287,7 @@ public class CircuitLab : MonoBehaviour
     public enum GameLevel
     {
         One,
-        Two
+        Two,
+        Three
     }
 }
