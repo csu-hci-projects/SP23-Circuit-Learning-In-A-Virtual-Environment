@@ -14,3 +14,101 @@ Participant Data
     "level01time": 3.763385057449341,
     "level02time": 0.0
 }
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 10.10408878326416,
+    "level02time": 0.0,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0,
+    "level03time": 15.499327659606934
+}
+{
+    "participantID": "99",
+    "level01time": 6.763951301574707,
+    "level02time": 0.0,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.9569100141525269,
+    "level02time": 0.0,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.9569100141525269,
+    "level02time": 10.744988441467286,
+    "level03time": 0.0
+}
+{
+    "participantID": "",
+    "level01time": 0.9569100141525269,
+    "level02time": 10.744988441467286,
+    "level03time": 24.626934051513673
+}

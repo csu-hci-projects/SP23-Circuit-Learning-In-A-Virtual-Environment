@@ -63,6 +63,7 @@ public class MouseDrag : MonoBehaviour
                 }
 
                 List<PegSnap> pegsToConnect = new List<PegSnap>() { peg, nextPegOver(peg) };
+                //Debug.Log("connecting to " + pegsToConnect.Count + " pegs");
                 _thisComponent.connect(pegsToConnect);
             }
         }
