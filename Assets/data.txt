@@ -154,3 +154,8 @@ Participant Data
     "level01time": 0.0,
     "level02time": 0.0
 }
+{
+    "participantID": "",
+    "level01time": 0.0,
+    "level02time": 0.0
+}
