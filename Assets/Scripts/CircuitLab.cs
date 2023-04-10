@@ -47,6 +47,11 @@ public class CircuitLab : MonoBehaviour
 
     void Start()
     {
+
+        string m_Path = Application.dataPath;
+
+        //Output the Game data path to the console
+        Debug.Log("dataPath : " + m_Path);
         setLevel(currentLevel);
 
         screenFixed.SetActive(isWorldFixed);
@@ -60,7 +65,7 @@ public class CircuitLab : MonoBehaviour
             V.setScale(board.scaleAdjust);
         }
 
-        dataManager.Save();
+
     }
 
     public void setLevel(GameLevel level)
@@ -68,20 +73,19 @@ public class CircuitLab : MonoBehaviour
         switch (level)
         {
             case GameLevel.One:
-                UIMainMenu.participantData.level01time = Time.time;
-
+                UIMainMenu.participantData.level01startTime = Time.time;
                 requirements = new List<System.Type>() { typeof(Battery), typeof(Wire), typeof(Wire), typeof(Wire) };
                 maxCurrent = false;
                 goalcurrent = 0.0f;
                 break;
             case GameLevel.Two:
-                UIMainMenu.participantData.level02time = Time.time;
+                UIMainMenu.participantData.level02startTime = Time.time;
                 requirements = new List<System.Type>() { typeof(Battery), typeof(Bulb)};
                 maxCurrent = false;
                 goalcurrent = 0.5f;
                 break;
             case GameLevel.Three:
-                UIMainMenu.participantData.level03time = Time.time;
+                UIMainMenu.participantData.level03startTime = Time.time;
                 requirements = new List<System.Type>() { typeof(Battery), typeof(Bulb), typeof(Bulb) };
                 maxCurrent = false;
                 goalcurrent = 0.0f;

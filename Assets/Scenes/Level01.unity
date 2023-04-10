@@ -1418,6 +1418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completeCanvas: {fileID: 1369964854}
   notCompleteCanvas: {fileID: 537189654}
+  dataManager: {fileID: 2122360566}
   MyButton: {fileID: 1327315306}
 --- !u!4 &750440670
 Transform:

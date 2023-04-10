@@ -9,6 +9,7 @@ public class ScenesManager : MonoBehaviour
     public static ScenesManager Instance;
     public GameObject completeCanvas;
     public GameObject notCompleteCanvas;
+    public DataManager dataManager;
 
     [SerializeField] private Button MyButton = null; // assign in the editor
 
@@ -39,23 +40,8 @@ public class ScenesManager : MonoBehaviour
     }
 
     public void LoadNextScene(){
-        //Debug.Log("Load next scene");
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
-
-        // if (SceneManager.GetActiveScene().buildIndex != 0)
-        // {
-        //     CircuitLab lab = FindObjectOfType<CircuitLab>();
-
-        //     // if (lab.checkRequirements())
-        //     // {
-        //     //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        //     // }
-        //     // else
-        //     // {
-        //     //     Debug.Log("Circuit not complete");
-        //     // }
-        // }
-
 
     }
 
@@ -68,7 +54,21 @@ public class ScenesManager : MonoBehaviour
 
             if (lab.checkRequirements())
             {
+                int sceneNum = SceneManager.GetActiveScene().buildIndex;
                 
+                switch(sceneNum){
+                    case 1:
+                        UIMainMenu.participantData.level01endTime = Time.time;
+                        dataManager.Save();
+                        break;
+                    case 2:
+                        UIMainMenu.participantData.level02endTime = Time.time;
+                        break;
+                    case 3:
+                        UIMainMenu.participantData.level03endTime = Time.time;
+                        dataManager.Save();
+                        break;
+                }
                 completeCanvas.SetActive(true);
             }
             else
