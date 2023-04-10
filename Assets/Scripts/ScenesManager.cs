@@ -7,13 +7,15 @@ using UnityEngine.SceneManagement;
 public class ScenesManager : MonoBehaviour
 {
     public static ScenesManager Instance;
-
+    public GameObject completeCanvas;
+    public GameObject notCompleteCanvas;
+    public DataManager dataManager;
 
     [SerializeField] private Button MyButton = null; // assign in the editor
 
     void Start()
     {
-        MyButton.onClick.AddListener(() => { LoadNextScene(); });
+        MyButton.onClick.AddListener(() => { IsComplete(); });
     }
 
 
@@ -38,28 +40,46 @@ public class ScenesManager : MonoBehaviour
     }
 
     public void LoadNextScene(){
-        Debug.Log("Load next scene");
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
-
-        if (SceneManager.GetActiveScene().buildIndex != 0)
-        {
-            CircuitLab lab = FindObjectOfType<CircuitLab>();
-
-            if (lab.checkRequirements())
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
-            else
-            {
-                Debug.Log("Circuit not complete");
-            }
-        }
-
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
 
     }
 
     public void LoadMainMenu(){
         SceneManager.LoadScene(Scene.MainMenu.ToString());
+    }
+
+    public void IsComplete(){
+        CircuitLab lab = FindObjectOfType<CircuitLab>();
+
+            if (lab.checkRequirements())
+            {
+                int sceneNum = SceneManager.GetActiveScene().buildIndex;
+                
+                switch(sceneNum){
+                    case 1:
+                        UIMainMenu.participantData.level01endTime = Time.time;
+                        dataManager.Save();
+                        break;
+                    case 2:
+                        UIMainMenu.participantData.level02endTime = Time.time;
+                        break;
+                    case 3:
+                        UIMainMenu.participantData.level03endTime = Time.time;
+                        dataManager.Save();
+                        break;
+                }
+                completeCanvas.SetActive(true);
+            }
+            else
+            {
+                notCompleteCanvas.SetActive(true);
+            }
+        
+    }
+
+    public void hideCanvas(){
+        notCompleteCanvas.SetActive(false);
     }
 }
 
