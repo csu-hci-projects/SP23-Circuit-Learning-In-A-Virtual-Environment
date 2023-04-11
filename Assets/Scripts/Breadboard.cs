@@ -5,9 +5,9 @@ using UnityEngine;
 public class Board
 {
     private GameObject pegTemplate;
-    [SerializeField] private float pegInterval;
-    [SerializeField] private float pegHeight = 0.45f;
-    [SerializeField] Vector3 pegScale = new Vector3(.02f, .2f, .02f);
+    private float pegInterval;
+    private Vector3 pegScale = new Vector3(.02f, .2f, .02f);
+    private const float PEG_HEIGHT = .45f;
     public float scaleAdjust { get; set; }
 
     private PegSnap[,] pegs;
@@ -21,7 +21,18 @@ public class Board
 
         CreatePegs();
     }
-    public void CreatePegs()
+
+    public PegSnap getPeg(int row, int col)
+    {
+        return pegs[row, col];
+    }
+
+    public PegSnap[,] getAllPegs()
+    {
+        return pegs;
+    }
+
+    private void CreatePegs()
     {
 
         // Creates a matrix of pegs
@@ -43,7 +54,9 @@ public class Board
         float boardHeight = size.z * boardObject.transform.localScale.z;
 
         // Create a new peg
-        Vector3 pegPosition = new Vector3(-(boardWidth / 2.0f) + ((col + 1) * pegInterval) + (boardWidth / 2) - 0.5f, pegHeight, -(boardHeight / 2.0f) + ((row + 1) * pegInterval) + (boardHeight / 2) - 0.5f);
+        float horizontal = (col + 1)*pegInterval - 0.5f;
+        float vertical = (row + 1)*pegInterval - 0.5f;
+        Vector3 pegPosition = new Vector3(horizontal, PEG_HEIGHT, vertical);
         Quaternion pegOrientation = Quaternion.Euler(new Vector3(0, 0, 0));
 
         GameObject peg = GameObject.Instantiate(pegTemplate, pegPosition, pegOrientation) as GameObject;
@@ -58,15 +71,5 @@ public class Board
         pegComponent.init(row, col);
 
         return pegComponent;
-    }
-
-    public PegSnap getPeg(int row, int col)
-    {
-        return pegs[row, col];
-    }
-
-    public PegSnap[,] getAllPegs()
-    {
-        return pegs;
     }
 }
