@@ -8,7 +8,6 @@ public class MouseDrag : MonoBehaviour
 {
     [SerializeField] private CircuitLab _lab;
     [SerializeField] private CircuitComponent _thisComponent;
-    [SerializeField] private bool _vertical;
 
     private const float LIFT_DISTANCE = -0.45f;
     private const float DEFAULT_HEIGHT = 12.45f;
@@ -73,7 +72,7 @@ public class MouseDrag : MonoBehaviour
     private PegSnap nextPegOver(PegSnap given)
     {
         PegSnap otherPeg = null;
-        if (_vertical)
+        if (_thisComponent.direction==CircuitComponent.Direction.Vertical)
         {
             int newRow = given.row - 1;
             if (newRow >= 0)

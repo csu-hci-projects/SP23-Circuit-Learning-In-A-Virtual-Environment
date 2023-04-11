@@ -9,8 +9,11 @@ public abstract class CircuitComponent : MonoBehaviour
     [SerializeField] protected CircuitLab _lab;
 
     [SerializeField] protected List<ComponentEnd> _ends;
-
     [SerializeField] protected List<PegSnap> _connectedPegs = new List<PegSnap>();
+
+    //for some reason, wire in the item tray scales weird. DEFAULT_SCALE is quick fix because time crunch :)))
+    private Vector3 DEFAULT_SCALE = new Vector3(5, 5, 5);
+    public Direction direction;
 
     const double SIGNIFICANT_CURRENT = 0.0000001;
     const float LABEL_OFFSET = 0.022f;
@@ -35,7 +38,7 @@ public abstract class CircuitComponent : MonoBehaviour
 
     public void setScale(float scaleAdjust)
     {
-        gameObject.transform.localScale = gameObject.transform.localScale * scaleAdjust;
+        gameObject.transform.localScale = DEFAULT_SCALE * scaleAdjust;
     }
 
     public void connect(List<PegSnap> pegs)
@@ -77,6 +80,14 @@ public abstract class CircuitComponent : MonoBehaviour
             }
         }
         return connectedComponents;
+    }
+
+
+
+    public enum Direction
+    {
+        Vertical,
+        Horizontal
     }
 }
 
