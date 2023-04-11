@@ -8,13 +8,13 @@ public class UIMainMenu : MonoBehaviour
 {
     [SerializeField] Button _newGameGroupA;
     [SerializeField] Button _newGameGroupB;
-    public static ParticipantData participantData = null;
+    public static ParticipantData participantData = new ParticipantData();
 
     public TMP_InputField playerID;
     // Start is called before the first frame update
     void Start()
     {
-        participantData = new ParticipantData();
+       
         _newGameGroupA.onClick.AddListener(delegate{StartNewGame(true);});
         _newGameGroupB.onClick.AddListener(delegate{StartNewGame(false);});
     }
