@@ -43,7 +43,7 @@ public class ScenesManager : MonoBehaviour
 
         if(SceneManager.GetActiveScene().buildIndex == 3)
             Application.Quit();
-
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
 
     }

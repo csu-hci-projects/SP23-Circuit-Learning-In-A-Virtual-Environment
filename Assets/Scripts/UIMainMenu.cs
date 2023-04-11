@@ -14,6 +14,7 @@ public class UIMainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         _newGameGroupA.onClick.AddListener(delegate{StartNewGame(true);});
         _newGameGroupB.onClick.AddListener(delegate{StartNewGame(false);});
     }
