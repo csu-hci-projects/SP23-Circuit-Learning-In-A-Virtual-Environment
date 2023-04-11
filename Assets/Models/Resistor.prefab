@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 4912509423046775074, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
       propertyPath: owner
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6978382381312796407}
     - target: {fileID: 7649148490959827587, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
       propertyPath: m_Name
       value: resistorWire
@@ -163,7 +163,11 @@ PrefabInstance:
     - target: {fileID: 8176676389941120919, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
       propertyPath: owner
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6978382381312796407}
+    - target: {fileID: 9047485955768759428, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
+      propertyPath: _thisComponent
+      value: 
+      objectReference: {fileID: 6978382381312796407}
     - target: {fileID: 9047485955768759428, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
       propertyPath: this_component
       value: 
@@ -209,15 +213,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c9db1b384949d746ad85608af216440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lab: {fileID: 0}
-  ends:
+  _lab: {fileID: 0}
+  _ends:
   - {fileID: 8993198151925462439}
   - {fileID: 5304005068411022098}
-  touchingComponents: []
-  startPeg: {fileID: 0}
-  endPeg: {fileID: 0}
+  _connectedPegs: []
   resistance: 5.6
-  transformAdjust: 1
   circuitIndex: 0
 --- !u!114 &8993198151925462439 stripped
 MonoBehaviour:

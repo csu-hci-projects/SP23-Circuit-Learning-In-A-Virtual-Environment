@@ -29,6 +29,7 @@ public class CircuitLab : MonoBehaviour
     public static bool isWorldFixed;
     public GameObject screenFixed = null;
     public DataManager dataManager;
+    
 
     public GameLevel currentLevel = GameLevel.One;
 
@@ -39,12 +40,20 @@ public class CircuitLab : MonoBehaviour
     private CircuitComponent[] allComponents;
     private List<Circuit> allCircuits = new List<Circuit>();
 
+
+    public bool maxCurrent;
+    public List<System.Type> requirements;
+    public float goalcurrent;
+
     void Start()
     {
-        if(currentLevel == GameLevel.One)
-        {
-            UIMainMenu.participantData.level01time = Time.time;
-        }
+
+        string m_Path = Application.dataPath;
+
+        //Output the Game data path to the console
+        Debug.Log("dataPath : " + m_Path);
+        setLevel(currentLevel);
+
         screenFixed.SetActive(isWorldFixed);
 
         allComponents = FindObjectsOfType<CircuitComponent>();
@@ -56,7 +65,105 @@ public class CircuitLab : MonoBehaviour
             V.setScale(board.scaleAdjust);
         }
 
-       dataManager.Save();
+
+    }
+
+    public void setLevel(GameLevel level)
+    {
+        switch (level)
+        {
+            case GameLevel.One:
+                UIMainMenu.participantData.level01startTime = Time.time;
+                requirements = new List<System.Type>() { typeof(Battery), typeof(Wire), typeof(Wire), typeof(Wire) };
+                maxCurrent = false;
+                goalcurrent = 0.0f;
+                break;
+            case GameLevel.Two:
+                UIMainMenu.participantData.level02startTime = Time.time;
+                requirements = new List<System.Type>() { typeof(Battery), typeof(Bulb)};
+                maxCurrent = false;
+                goalcurrent = 0.5f;
+                break;
+            case GameLevel.Three:
+                UIMainMenu.participantData.level03startTime = Time.time;
+                requirements = new List<System.Type>() { typeof(Battery), typeof(Bulb), typeof(Bulb) };
+                maxCurrent = false;
+                goalcurrent = 0.0f;
+                break;
+        }
+    }
+
+    public bool checkRequirements()
+    {
+
+        Debug.Log("Check requirements on " + allCircuits.Count + " circuits");
+
+        foreach (Circuit C in allCircuits)
+        {
+
+            Debug.Log("Checking circuit " + C.index);
+
+            if (maxCurrent)
+            {
+                if (C.current > goalcurrent)
+                {
+                    Debug.Log(C.index + ": Max current exceeded");
+                    continue; //Continue to the next circuit
+                }
+            }
+            else if (C.current < goalcurrent)
+            {
+                Debug.Log(C.index + ": Min current not met");
+                continue; //Continue to the next circuit
+            }
+
+            if (!circuitIsLoop(C))
+            {
+                Debug.Log("Circuit is not a loop.");
+                continue; //continue to the next circuit
+            }
+
+            List<System.Type> componentTypes = new List<System.Type>();
+
+            foreach (CircuitComponent copyType in C.ownComponents)
+            {
+                componentTypes.Add(copyType.GetType());
+            }
+
+            bool allcomponentsfound = true;
+            foreach (System.Type T in requirements)
+            {
+                bool found = false;
+                foreach (System.Type singleType in componentTypes)
+                {
+                    if (singleType == T)
+                    {
+                        Debug.Log(C.index + ": Found component type: " + T.Name);
+                        found = true;
+                        componentTypes.Remove(T);
+                       
+                        break; //Stop checking for this one requirement - break out of the components foreach loop
+                    }
+                }
+
+                if (found) continue; //continue to next component requirement
+                
+                else
+                {
+                    Debug.Log(C.index + ": Did not find necessary component: " + T.Name);
+                    allcomponentsfound = false;
+                    break;
+                    //No, it shouldn't return false, it should go on to check the next circuit.
+                }
+            }
+            if (allcomponentsfound) 
+            {
+                return true; }
+            else continue;
+        }
+        //Done checking all circuits
+
+        return false;
     }
 
     public void constructCircuits()
@@ -110,6 +217,8 @@ public class CircuitLab : MonoBehaviour
             }
         }
 
+        Debug.Log("Constructed " + allCircuits.Count + " circuits");
+
     }
 
     private bool circuitIsLoop(Circuit testCircuit)
@@ -131,7 +240,7 @@ public class CircuitLab : MonoBehaviour
         }
 
         visited.Add(thisItem);
-        List<CircuitComponent> connectedComponents = thisItem.pegConnections();
+        List<CircuitComponent> connectedComponents = thisItem.connectedViaPegs();
         if (connectedComponents.Count != 2)
         {
             return false;
@@ -157,7 +266,7 @@ public class CircuitLab : MonoBehaviour
         //Recursively accesses all of the unvisited adjacent components to thisItem, adding them to the circuit and removing
         //them from unvisited
         
-        foreach (CircuitComponent V in thisItem.pegConnections())
+        foreach (CircuitComponent V in thisItem.connectedViaPegs())
         {
             if (unvisited.Contains(V))
             {
@@ -185,6 +294,7 @@ public class CircuitLab : MonoBehaviour
     public enum GameLevel
     {
         One,
-        Two
+        Two,
+        Three
     }
 }
