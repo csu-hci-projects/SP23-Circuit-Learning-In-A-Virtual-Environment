@@ -121,14 +121,18 @@ public class MouseDrag : MonoBehaviour
                 List<PegSnap> pegsToConnect = new List<PegSnap>() { peg, nextPegOver(peg) };
                 _thisComponent.connect(pegsToConnect);
                 _lab.addCircuitComponent(gameObject.GetComponent<CircuitComponent>());
-                _lab.constructCircuits();
-
-                return;
             }
         }
 
-        _lab.removeCircuitComponent(gameObject.GetComponent<CircuitComponent>());
-        Destroy(gameObject);
+        if (_thisComponent.isSnapped())
+        {
+            _lab.constructCircuits();
+        }
+        else
+        {
+            _lab.removeCircuitComponent(gameObject.GetComponent<CircuitComponent>());
+            Destroy(gameObject);
+        }
     }
 
     private bool pegsNotBlocked(PegSnap peg)
