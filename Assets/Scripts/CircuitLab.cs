@@ -18,12 +18,12 @@ public class CircuitLab : MonoBehaviour
     public ItemTray tray;
     [SerializeField] private int size = 9;
 
-    private CircuitComponent[] allComponents;
     [SerializeField] private GameObject pegTemplate = null;
     [SerializeField] private GameObject batteryTemplate = null;
     [SerializeField] private GameObject bulbTemplate = null;
     [SerializeField] private GameObject wireTemplate = null;
 
+    private List<CircuitComponent> allComponents;
     private List<Circuit> allCircuits = new List<Circuit>();
 
     void Start()
@@ -41,6 +41,12 @@ public class CircuitLab : MonoBehaviour
         allComponents = new List<CircuitComponent>();
         
        dataManager.Save();
+    }
+
+    public void addCircuitComponent(CircuitComponent component)
+    {
+        allComponents.Add(component);
+        component.setScale(board.scaleAdjust);
     }
 
     public void constructCircuits()
