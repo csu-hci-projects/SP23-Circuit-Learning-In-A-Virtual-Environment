@@ -6,11 +6,17 @@ public class ItemTray
 {
     private List<GameObject> itemTemplates;
 
+    private bool[] itemsToSkip = new bool[] { false, false, false };
     private int numItemVariations = Enum.GetValues(typeof(CircuitComponent.Direction)).Length;
 
-    public ItemTray(List<GameObject> itemTemplates)
+    public ItemTray(List<GameObject> itemTemplates, CircuitLab.GameLevel level)
     {
         this.itemTemplates = itemTemplates;
+
+        if(level == CircuitLab.GameLevel.One)
+        {
+            itemsToSkip[1] = true;
+        }
         initializeeTray();
     }
 
@@ -28,6 +34,10 @@ public class ItemTray
     private void createTrayItem(int row, int col)
     {
         // find bounds of breadboard
+        if (itemsToSkip[row])
+        {
+            return;
+        }
 
         Vector3 itemPosition = calculateTrayItemPosition(row, col);
         Quaternion itemOrientation = Quaternion.Euler(new Vector3(0, 90*col, 0));
@@ -51,11 +61,11 @@ public class ItemTray
         Vector3 boardSize = boardObject.GetComponent<MeshFilter>().mesh.bounds.size;
 
         float boardPosX = -boardSize.x / 2;
-        float boardPosY = boardSize.y / 2;
+        float boardPosY = boardSize.y;
         float boardPosZ = boardSize.z / 2;
 
-        float itemPosX = boardPosX + ((2*col+.5f) / (boardSize.x * (numItemVariations + 1)));
-        float itemPosZ = boardPosZ - ((row+.375f) / (boardSize.z * (itemTemplates.Count))) - col * .05f;
+        float itemPosX = boardPosX + ((1.5f*col+.85f) / (boardSize.x * (numItemVariations + 1)));
+        float itemPosZ = boardPosZ - ((row+.5f) / ((boardSize.z+.1f) * (itemTemplates.Count))) - col * .05f;
 
         return new Vector3(itemPosX, boardPosY, itemPosZ);
     }

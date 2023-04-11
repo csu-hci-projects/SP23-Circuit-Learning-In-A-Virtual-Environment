@@ -43,8 +43,10 @@ public abstract class CircuitComponent : MonoBehaviour
 
     public void connect(List<PegSnap> pegs)
     {
+        //Debug.Log("Connecting to " + pegs.Count + " pegs");
         foreach (PegSnap peg in pegs)
         {
+            Debug.Log("Peg " + peg.row + " " + peg.col);
             peg.attachedComponents.Add(this);
             if (peg.attachedComponents.Count >= 2)
             {
@@ -52,7 +54,10 @@ public abstract class CircuitComponent : MonoBehaviour
             }
         }
         _connectedPegs = pegs;
+
+        Debug.Log("Connected to " + connectedViaPegs().Count + " other components");
     }
+
     public void disconnect()
     {
         foreach(PegSnap peg in _connectedPegs)
@@ -68,7 +73,7 @@ public abstract class CircuitComponent : MonoBehaviour
         return !(_connectedPegs.Count == 0);
     }
 
-    public List<CircuitComponent> pegConnections()
+    public List<CircuitComponent> connectedViaPegs()
     {
         List<CircuitComponent> connectedComponents =  new List<CircuitComponent>();
         foreach(PegSnap peg in _connectedPegs)

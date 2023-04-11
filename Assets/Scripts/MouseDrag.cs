@@ -49,7 +49,6 @@ public class MouseDrag : MonoBehaviour
         if (_trayItem != null)
         {
             _trayItem.duplicateComponent();
-            _lab.addCircuitComponent(_trayItem.dupedComponent.GetComponent<CircuitComponent>());
         }
         else
         {
@@ -115,25 +114,26 @@ public class MouseDrag : MonoBehaviour
 
         foreach (PegSnap peg in _lab.board.getAllPegs())
         {
-            if (Vector3.Distance(transform.position, peg.transform.position) < SNAP_DISTANCE && !peg.blocked)
+            if (Vector3.Distance(transform.position, peg.transform.position) < SNAP_DISTANCE && pegsNotBlocked(peg))
             {
                 transform.position = peg.transform.position;
 
-                if (peg.blocked)
-                {
-                    Debug.Log("Can't connect to blocked peg");
-                    break;
-                }
-
                 List<PegSnap> pegsToConnect = new List<PegSnap>() { peg, nextPegOver(peg) };
                 _thisComponent.connect(pegsToConnect);
+                _lab.addCircuitComponent(gameObject.GetComponent<CircuitComponent>());
                 _lab.constructCircuits();
 
                 return;
             }
         }
 
+        _lab.removeCircuitComponent(gameObject.GetComponent<CircuitComponent>());
         Destroy(gameObject);
+    }
+
+    private bool pegsNotBlocked(PegSnap peg)
+    {
+        return !(peg.blocked || nextPegOver(peg).blocked);
     }
 
 }

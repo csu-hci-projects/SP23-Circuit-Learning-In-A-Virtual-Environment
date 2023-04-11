@@ -8,7 +8,7 @@ public class Board
     private float pegInterval;
     private Vector3 pegScale = new Vector3(.02f, .2f, .02f);
     private const float PEG_HEIGHT = .45f;
-    public float scaleAdjust { get; set; }
+    public static float scaleAdjust;
 
     private PegSnap[,] pegs;
 

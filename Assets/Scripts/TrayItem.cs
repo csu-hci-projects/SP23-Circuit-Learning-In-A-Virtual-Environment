@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TrayItem : MonoBehaviour
@@ -15,7 +13,9 @@ public class TrayItem : MonoBehaviour
 
         string componentName = dupedComponent.name.Split("_")[0].Split("(")[0];
         dupedComponent.name = componentName + "_" + dupedComponent.GetComponent<CircuitComponent>().direction + " (" + numComponentsDuped++ + ")";
+        dupedComponent.GetComponent<CircuitComponent>().setScale(Board.scaleAdjust);
 
         Component.Destroy(dupedComponent.GetComponent<TrayItem>());
+
     }
 }
