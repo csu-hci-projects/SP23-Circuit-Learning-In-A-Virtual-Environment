@@ -1314,10 +1314,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9047485955768759428, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
-      propertyPath: _vertical
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9047485955768759428, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
       propertyPath: this_wire
       value: 
       objectReference: {fileID: 0}
@@ -1368,12 +1364,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734f14d12b23bfa4da698257d4a43bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lab: {fileID: 0}
-  _ends:
+  Lab: {fileID: 0}
+  ends:
   - {fileID: 7431097047423475903}
   - {fileID: 5941745394593873418}
-  _connectedPegs: []
+  touchingComponents: []
+  startPeg: {fileID: 0}
+  endPeg: {fileID: 0}
   resistance: 0.05
+  connectedPegs: []
+  transformAdjust: 1
   circuitIndex: 0
   voltage: 5
 --- !u!114 &5941745394593873418 stripped

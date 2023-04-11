@@ -11,7 +11,7 @@ public class Battery : CircuitComponent
     // Update is called once per frame
     protected override void Update()
     {
-        foreach (CircuitComponent item in connectedViaPegs())
+        foreach (CircuitComponent item in pegConnections())
         {
             if (item.name == "WireEnd1" || item.name == "WireEnd2")
             {
