@@ -112,3 +112,21 @@ Participant Data
     "level02time": 10.744988441467286,
     "level03time": 24.626934051513673
 }
+{
+    "participantID": "",
+    "level01startTime": 6.994454383850098,
+    "level01endTime": 28.51263427734375,
+    "level02startTime": 0.0,
+    "level02endTime": 0.0,
+    "level03startTime": 0.0,
+    "level03endTime": 0.0
+}
+{
+    "participantID": "",
+    "level01startTime": 1.811841607093811,
+    "level01endTime": 15.736108779907227,
+    "level02startTime": 0.0,
+    "level02endTime": 0.0,
+    "level03startTime": 0.0,
+    "level03endTime": 0.0
+}

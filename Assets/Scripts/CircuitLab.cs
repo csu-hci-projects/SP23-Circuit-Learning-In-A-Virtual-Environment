@@ -48,10 +48,10 @@ public class CircuitLab : MonoBehaviour
     void Start()
     {
 
-        string m_Path = Application.dataPath;
+        // string m_Path = Application.dataPath;
 
-        //Output the Game data path to the console
-        Debug.Log("dataPath : " + m_Path);
+        // //Output the Game data path to the console
+        // Debug.Log("dataPath : " + m_Path);
         setLevel(currentLevel);
 
         screenFixed.SetActive(isWorldFixed);
