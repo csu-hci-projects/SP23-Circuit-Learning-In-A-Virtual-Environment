@@ -3,7 +3,13 @@ guid: 123fe38a7fdaa4ebb8cc1ddf5de9bf89
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - screenFixed: {instanceID: 0}
+  - dataManager: {instanceID: 0}
+  - pegTemplate: {fileID: 4055305532229596918, guid: 83ed60fa731004c3eb52589006f5337d, type: 3}
+  - wireTemplate: {fileID: 7649148490959827587, guid: 7f9d0f7c3d31b4254a0e193b925faac8, type: 3}
+  - batteryTemplate: {fileID: 9209728374537748181, guid: 9ffd25e5fcf606b4ca5a19b0cdff632f, type: 3}
+  - bulbTemplate: {fileID: 7864826705920570210, guid: f8de83adfa0456e45af6318599ebc571, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

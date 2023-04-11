@@ -6,24 +6,6 @@ using UnityEngine;
 //using SpiceSharp.Simulations;
 //using UnityEngine.XR.Interaction.Toolkit;
 
-public class Circuit
-{
-    public float resistance = 0f;
-    public float current = 0f;
-    public float voltage = 0f;
-
-    public int index;
-
-    public List<CircuitComponent> ownComponents = new List<CircuitComponent>();
-
-    public void addComponent(CircuitComponent newItem)
-    {
-        ownComponents.Add(newItem);
-        newItem.circuitIndex = index;
-        newItem.ownCircuit = this;
-    }
-}
-
 public class CircuitLab : MonoBehaviour
 {
     public static bool isWorldFixed;
@@ -33,10 +15,15 @@ public class CircuitLab : MonoBehaviour
     public GameLevel currentLevel = GameLevel.One;
 
     public Board board;
-    [SerializeField] private GameObject pegTemplate = null;
+    public ItemTray tray;
     [SerializeField] private int size = 9;
 
     private CircuitComponent[] allComponents;
+    [SerializeField] private GameObject pegTemplate = null;
+    [SerializeField] private GameObject batteryTemplate = null;
+    [SerializeField] private GameObject bulbTemplate = null;
+    [SerializeField] private GameObject wireTemplate = null;
+
     private List<Circuit> allCircuits = new List<Circuit>();
 
     void Start()
@@ -47,15 +34,12 @@ public class CircuitLab : MonoBehaviour
         }
         screenFixed.SetActive(isWorldFixed);
 
-        allComponents = FindObjectsOfType<CircuitComponent>();
-
+        List<GameObject> trayTemplates = new List<GameObject>() { batteryTemplate, bulbTemplate, wireTemplate };
         board = new Board(size, pegTemplate);
+        tray = new ItemTray(trayTemplates);
 
-        foreach (CircuitComponent V in allComponents)
-        {
-            V.setScale(board.scaleAdjust);
-        }
-
+        allComponents = new List<CircuitComponent>();
+        
        dataManager.Save();
     }
 
@@ -186,5 +170,23 @@ public class CircuitLab : MonoBehaviour
     {
         One,
         Two
+    }
+}
+
+public class Circuit
+{
+    public float resistance = 0f;
+    public float current = 0f;
+    public float voltage = 0f;
+
+    public int index;
+
+    public List<CircuitComponent> ownComponents = new List<CircuitComponent>();
+
+    public void addComponent(CircuitComponent newItem)
+    {
+        ownComponents.Add(newItem);
+        newItem.circuitIndex = index;
+        newItem.ownCircuit = this;
     }
 }
