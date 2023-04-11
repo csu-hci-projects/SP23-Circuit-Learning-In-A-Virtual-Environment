@@ -73,3 +73,8 @@ crashlytics-build.properties
 
 .vsconfig
 Assets/data.txt
+myFaraday.exe
+UnityCrashHandler64.exe
+UnityPlayer.dll
+myFaraday_Data/*
+MonoBleedingEdge/*
