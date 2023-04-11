@@ -40,6 +40,9 @@ public class ScenesManager : MonoBehaviour
     }
 
     public void LoadNextScene(){
+
+        if(SceneManager.GetActiveScene().buildIndex == 3)
+            Application.Quit();
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
 
@@ -59,7 +62,7 @@ public class ScenesManager : MonoBehaviour
                 switch(sceneNum){
                     case 1:
                         UIMainMenu.participantData.level01endTime = Time.time;
-                        dataManager.Save();
+                        
                         break;
                     case 2:
                         UIMainMenu.participantData.level02endTime = Time.time;
