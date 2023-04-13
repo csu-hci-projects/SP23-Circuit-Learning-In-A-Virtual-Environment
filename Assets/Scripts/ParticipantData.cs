@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParticipantData
 {
    public string participantID ="";
-
+    public string group="";
    public float level01startTime =0f;
     public float level01endTime =0f;
    public float level02startTime =0f;

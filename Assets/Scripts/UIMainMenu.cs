@@ -15,8 +15,8 @@ public class UIMainMenu : MonoBehaviour
     void Start()
     {
        
-        _newGameGroupA.onClick.AddListener(delegate{StartNewGame(true);});
-        _newGameGroupB.onClick.AddListener(delegate{StartNewGame(false);});
+        _newGameGroupA.onClick.AddListener(delegate{participantData.group = "A"; StartNewGame(true);});
+        _newGameGroupB.onClick.AddListener(delegate{participantData.group = "B"; StartNewGame(false);});
     }
 
     private void StartNewGame(bool worldFixedActive){

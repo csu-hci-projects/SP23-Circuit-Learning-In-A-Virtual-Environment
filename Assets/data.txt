@@ -130,3 +130,13 @@ Participant Data
     "level03startTime": 0.0,
     "level03endTime": 0.0
 }
+{
+    "participantID": "9990",
+    "group": "B",
+    "level01startTime": 9.192842483520508,
+    "level01endTime": 21.291690826416017,
+    "level02startTime": 23.103050231933595,
+    "level02endTime": 32.156803131103519,
+    "level03startTime": 33.22160720825195,
+    "level03endTime": 46.09243392944336
+}
