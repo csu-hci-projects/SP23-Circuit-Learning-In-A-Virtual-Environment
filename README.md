@@ -43,6 +43,7 @@ Improved circuit logic to include peg blocking | Freya Laluna
 Created function for determining when a board has completed circuits | Ali Branum
 Created button for testing complete circuits | Cory Raetz
 Created UI popup for moving between levels | Freya LaLuna
+Created ItemTray script for automating tray creation (ultimately not used in main) | Steph Didier
 Added logic for duplicating components (ultimately not used in main) | Steph Didier
 Have components disappear when not snapped (ultimately not used in main) | Steph Didier
 Created consent form | Freya LaLuna
@@ -61,7 +62,10 @@ Added resistance, current, and voltage calculations to circuit class | Ali Branu
 Added bulb brightness update logic | Ali Branum
 Created resistors (not used in final levels) | Ali Branum
 Variable size for board and all components (not used in final levels) | Ali Branum
-Refactored circuit construction logic to simplify connected components | Steph Didier
+Implemented abstract class that all circuit components inherit (mostly ported from Wire script) | Steph Didier
+Simplified PegSnap script to a data structure that all other scripts access | Steph Didier
+Refactored component connection to use PegSnap instead of Unity colission | Steph Didier
+Updated Breadboard script to use PegSnap instead of deprecated classes | Steph Didier
 Wrote out research paper introduction | Cory Raetz
 Wrote out research paper prior works | Ali Branum, Freya LaLuna, Cory Raetz
 Wrote out research paper methodology section | Steph Didier
